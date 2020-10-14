@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add request</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<form method="post" th:action="@{/addRequest}" th:object="${contactDto}">
+    <h1>Оставить заявку!</h1>
+    <div th:if="${#fields.hasErrors()}">
+        <span class="validationError">
+            Неверные данные!
+        </span>
+    </div>
+    <label for="firstname">Имя: </label>
+    <input type="text" id="firstname" th:field="*{firstname}" placeholder="Дмитрий"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('firstname')}"
+          th:errors="*{firstname}">First name error</span>
+    <br/>
+    <label for="lastname">Фамилия: </label>
+    <input type="text" id="lastname" th:field="*{lastname}" placeholder="Милославский"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('lastname')}"
+          th:errors="*{lastname}">Last name error</span>
+    <br/>
+    <label for="region">Область: </label>
+    <input type="text" id="region" th:field="*{region}" placeholder="Гродненская"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('region')}"
+          th:errors="*{region}">Region error</span>
+    <br/>
+    <label for="district">Район: </label>
+    <input type="text" id="district" th:field="*{district}" placeholder="Несвижский"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('district')}"
+          th:errors="*{district}">District error</span>
+    <br/>
+    <label for="city">Город: </label>
+    <input type="text" id="city" th:field="*{city}" placeholder="Минск"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('city')}"
+          th:errors="*{city}">City error</span>
+    <br/>
+    <label for="streetAddress">Улица и номер дома: </label>
+    <input type="text" id="streetAddress" th:field="*{streetAddress}" placeholder="Ленина 11"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('streetAddress')}"
+          th:errors="*{streetAddress}">Street and building number error</span>
+    <br/>
+    <label for="phone">Телефон: </label>
+    <input type="text" id="phone" th:field="*{phoneNumber}" placeholder="+375441112233"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('phoneNumber')}"
+          th:errors="*{phoneNumber}">Street and building number error</span>
+    <br/>
+    <input type="submit" value="Отправить запрос">
+</form>
+</body>
+</html>

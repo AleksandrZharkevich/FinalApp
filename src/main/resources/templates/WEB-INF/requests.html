@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Requests</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>Hello world</h1>
+<ul>
+    <li th:each="request: ${requests}"
+        th:utext="|${request.contactInfo.firstname} ${request.contactInfo.lastname} ${request.contactInfo.phoneNumber}|">
+        ...
+    </li>
+</ul>
+</body>
+</html>
