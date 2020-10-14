@@ -20,6 +20,7 @@
         <modelmapper.version>2.3.8</modelmapper.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <lombok.version>1.18.12</lombok.version>
+        <thymeleaf.extras.version>3.0.4.RELEASE</thymeleaf.extras.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>${thymeleaf.extras.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
