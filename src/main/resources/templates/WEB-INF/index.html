@@ -85,6 +85,10 @@
                     <div class="ml-auto" sec:authorize="isAuthenticated()">
                         <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_open"></span>Logout</a>
+<!--                        <form th:href="@{/logout}" method="post">-->
+<!--                            <input type="submit" value="Logout"-->
+<!--                                   class="btn btn-primary border-width-2 d-none d-lg-inline-block"/>-->
+<!--                        </form>-->
                     </div>
                     <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
                             class="icon-menu h3 m-0 p-0 mt-2"></span></a>
