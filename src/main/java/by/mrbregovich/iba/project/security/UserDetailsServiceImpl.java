@@ -1,6 +1,7 @@
 package by.mrbregovich.iba.project.security;
 
 import by.mrbregovich.iba.project.entity.User;
+import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +21,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepository.findByLogin(login);
-        if (user != null) {
-            return user;
+        User user = null;
+        try {
+            user = userRepository.findByLogin(login);
+        } catch (UserNotFoundException e) {
+            throw new UsernameNotFoundException("User '" + login + "' not found");
         }
-        throw new UsernameNotFoundException(
-                "User '" + login + "' not found");
+        return user;
     }
 }

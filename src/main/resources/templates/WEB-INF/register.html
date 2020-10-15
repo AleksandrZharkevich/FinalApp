@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>JobBoard &mdash; Website Template by Colorlib</title>
     <meta charset="utf-8">
@@ -14,6 +15,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body id="top">
 
@@ -76,12 +78,16 @@
                 </nav>
 
                 <div class="right-cta-menu text-right d-flex align-items-center col-6">
-                    <div class="ml-auto">
+                    <div class="ml-auto" sec:authorize="!isAuthenticated()">
                         <a th:href="@{/register}"
                            class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-add"></span>Register</a>
                         <a th:href="@{/login}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_outline"></span>Log In</a>
+                    </div>
+                    <div class="ml-auto" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_open"></span>Logout</a>
                     </div>
                     <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
                             class="icon-menu h3 m-0 p-0 mt-2"></span></a>
@@ -92,7 +98,7 @@
     </header>
 
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('@{images/hero_1.jpg}');"
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('@{images/start.jpg}');"
              id="home-section">
         <div class="container">
             <div class="row">
@@ -112,14 +118,15 @@
             <div class="row">
                 <div class="col-lg-6 mb-5">
                     <h2 class="mb-4">Sign Up To The CHOICE</h2>
+                    <div class="validationError" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                     <form method="post" th:action="@{/register}" th:object="${regForm}" class="p-4 border rounded">
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="login">Логин</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('login')}"
-                                      th:errors="*{login}">Login error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('login')}"
+                                   th:errors="*{login}">Login error</p>
                                 <input type="text" id="login" th:field="*{login}" name="login" class="form-control"
                                        placeholder="Your login">
                             </div>
@@ -127,9 +134,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="password">Пароль</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('password')}"
-                                      th:errors="*{password}">Password error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('password')}"
+                                   th:errors="*{password}">Password error</p>
                                 <input type="password" id="password" th:field="*{password}" name="password"
                                        class="form-control"
                                        placeholder="Your password">
@@ -138,11 +145,11 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="email">Email</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('email')}"
-                                      th:errors="*{email}">Email error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('email')}"
+                                   th:errors="*{email}">Email error</p>
                                 <input type="email" id="email" th:field="*{email}" name="email" class="form-control"
-                                       placeholder="email@email.com">
+                                       placeholder="email@example.com">
                             </div>
                         </div>
                         <br/>
@@ -150,9 +157,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="firstname">Имя</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('firstname')}"
-                                      th:errors="*{firstname}">First name error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('firstname')}"
+                                   th:errors="*{firstname}">First name error</p>
                                 <input type="text" id="firstname" th:field="*{firstname}" name="firstname"
                                        class="form-control" placeholder="Дмитрий">
                             </div>
@@ -160,9 +167,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="lastname">Фамилия</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('lastname')}"
-                                      th:errors="*{lastname}">Last name error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('lastname')}"
+                                   th:errors="*{lastname}">Last name error</p>
                                 <input type="text" id="lastname" th:field="*{lastname}" name="lastname"
                                        class="form-control" placeholder="Милославский">
                             </div>
@@ -170,9 +177,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="region">Область</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('region')}"
-                                      th:errors="*{region}">Region error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('region')}"
+                                   th:errors="*{region}">Region error</p>
                                 <input type="text" id="region" th:field="*{region}" name="region"
                                        class="form-control" placeholder="Гродненская">
                             </div>
@@ -180,9 +187,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="district">Район</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('district')}"
-                                      th:errors="*{district}">District error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('district')}"
+                                   th:errors="*{district}">District error</p>
                                 <input type="text" id="district" th:field="*{district}" name="district"
                                        class="form-control" placeholder="Несвижский">
                             </div>
@@ -190,9 +197,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="city">Город</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('city')}"
-                                      th:errors="*{city}">City error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('city')}"
+                                   th:errors="*{city}">City error</p>
                                 <input type="text" id="city" th:field="*{city}" name="city"
                                        class="form-control" placeholder="Гродно">
                             </div>
@@ -200,9 +207,9 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="streetAddress">Улица и номер дома</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('streetAddress')}"
-                                      th:errors="*{streetAddress}">Address error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('streetAddress')}"
+                                   th:errors="*{streetAddress}">Address error</p>
                                 <input type="text" id="streetAddress" th:field="*{streetAddress}" name="streetAddress"
                                        class="form-control" placeholder="Ленина 11">
                             </div>
@@ -210,20 +217,13 @@
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="phoneNumber">Телефон</label>
-                                <span class="validationError"
-                                      th:if="${#fields.hasErrors('phoneNumber')}"
-                                      th:errors="*{phoneNumber}">Address error</span>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('phoneNumber')}"
+                                   th:errors="*{phoneNumber}">Address error</p>
                                 <input type="text" id="phoneNumber" th:field="*{phoneNumber}" name="phoneNumber"
                                        class="form-control" placeholder="+375441112233">
                             </div>
                         </div>
-                        <!--              <div class="row form-group mb-4">-->
-                        <!--                <div class="col-md-12 mb-3 mb-md-0">-->
-                        <!--                  <label class="text-black" for="fname">Re-Type Password</label>-->
-                        <!--                  <input type="password" id="fname" class="form-control" placeholder="Re-type Password">-->
-                        <!--                </div>-->
-                        <!--              </div>-->
-
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">

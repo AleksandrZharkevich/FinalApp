@@ -1,24 +1,30 @@
 package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.dto.NewUserDto;
+import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.repository.UserRepository;
+import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
 
-    private UserRepository userRepository;
+    private UserService userService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -30,8 +36,20 @@ public class RegistrationController {
     }
 
 
-//    @PostMapping
-//    public String processRegistration(NewUserDto form){
-//        //userRepository.save(form)
-//    }
+    @PostMapping("/register")
+    public ModelAndView processRegistration(@Valid @ModelAttribute("regForm") NewUserDto form, Errors errors) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (errors.hasErrors()) {
+            modelAndView.setViewName("register");
+        } else {
+            try {
+                userService.register(form);
+                modelAndView.setViewName("login");
+            } catch (UserAlreadyExistsException e) {
+                modelAndView.addObject("errorMessage", e.getMessage());
+                modelAndView.setViewName("register");
+            }
+        }
+        return modelAndView;
+    }
 }
