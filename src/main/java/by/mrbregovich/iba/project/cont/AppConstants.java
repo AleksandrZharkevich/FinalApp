@@ -20,4 +20,7 @@ public final class AppConstants {
     public static final String VALIDATION_CITY = "Введите название населенного пункта";
     public static final String VALIDATION_STREET_ADDRESS = "Введите улицу и номер дома";
     public static final String VALIDATION_PHONE_NUMBER = "Введите номер телефона в формате +375(XX)XXXXXXX";
+
+    //
+    public static final int COMPANIES_PAGE_SIZE = 5;
 }
