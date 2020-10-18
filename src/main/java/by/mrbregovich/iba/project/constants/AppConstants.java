@@ -1,4 +1,4 @@
-package by.mrbregovich.iba.project.cont;
+package by.mrbregovich.iba.project.constants;
 
 public final class AppConstants {
 

@@ -1,6 +1,6 @@
 package by.mrbregovich.iba.project.controller;
 
-import by.mrbregovich.iba.project.cont.AppConstants;
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;

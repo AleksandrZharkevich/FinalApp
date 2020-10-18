@@ -1,6 +1,6 @@
 package by.mrbregovich.iba.project.dto;
 
-import by.mrbregovich.iba.project.cont.AppConstants;
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.validator.BelarusRegion;
 import by.mrbregovich.iba.project.validator.CellPhone;
 import lombok.AllArgsConstructor;

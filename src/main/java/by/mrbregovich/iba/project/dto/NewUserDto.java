@@ -1,6 +1,6 @@
 package by.mrbregovich.iba.project.dto;
 
-import by.mrbregovich.iba.project.cont.AppConstants;
+import by.mrbregovich.iba.project.constants.AppConstants;
 import lombok.*;
 
 import javax.validation.constraints.Email;

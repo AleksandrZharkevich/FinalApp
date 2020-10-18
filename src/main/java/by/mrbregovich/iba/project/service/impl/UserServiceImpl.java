@@ -9,7 +9,7 @@ import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.repository.RoleRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
 import by.mrbregovich.iba.project.service.UserService;
-import by.mrbregovich.iba.project.cont.AppConstants;
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
