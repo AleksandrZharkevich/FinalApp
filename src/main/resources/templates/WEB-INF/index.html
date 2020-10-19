@@ -85,10 +85,10 @@
                     <div class="ml-auto" sec:authorize="isAuthenticated()">
                         <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                                 class="mr-2 icon-lock_open"></span>Logout</a>
-<!--                        <form th:href="@{/logout}" method="post">-->
-<!--                            <input type="submit" value="Logout"-->
-<!--                                   class="btn btn-primary border-width-2 d-none d-lg-inline-block"/>-->
-<!--                        </form>-->
+                        <!--                        <form th:href="@{/logout}" method="post">-->
+                        <!--                            <input type="submit" value="Logout"-->
+                        <!--                                   class="btn btn-primary border-width-2 d-none d-lg-inline-block"/>-->
+                        <!--                        </form>-->
                     </div>
                     <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
                             class="icon-menu h3 m-0 p-0 mt-2"></span></a>
@@ -186,43 +186,45 @@
             <!--            </ul>-->
 
             <div class="mb-5">
-<!--                <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">-->
-<!--                    <div class="col-md-6">-->
-<!--                        <h4><a href="job-single.html">Нет жестокому обращению с домашними животными</a></h4>-->
-<!--                        <p class="meta">Организатор: <strong>John Stewart</strong></p>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-3 text-left">-->
-<!--                        До окончания компании осталось:-->
-<!--                    </div>-->
-<!--                    <div class="col-md-3 text-md-right">-->
-<!--                        <strong class="text-black">$60k &mdash; $100k</strong>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">-->
+                <!--                    <div class="col-md-6">-->
+                <!--                        <h4><a href="job-single.html">Нет жестокому обращению с домашними животными</a></h4>-->
+                <!--                        <p class="meta">Организатор: <strong>John Stewart</strong></p>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-md-3 text-left">-->
+                <!--                        До окончания компании осталось:-->
+                <!--                    </div>-->
+                <!--                    <div class="col-md-3 text-md-right">-->
+                <!--                        <strong class="text-black">$60k &mdash; $100k</strong>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-<!--                <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">-->
-<!--                    <div class="col-md-2">-->
-<!--                        &lt;!&ndash;                        <a href="job-single.html">&ndash;&gt;-->
-<!--                        <img src="images/featured-listing-2.jpg" alt="Image" class="img-fluid">-->
-<!--                        &lt;!&ndash;                        </a>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                    <div class="col-md-7">-->
-<!--                        &lt;!&ndash;                        <span class="badge badge-warning px-2 py-1 mb-3">Full-time</span>&ndash;&gt;-->
-<!--                        <h4><a href="job-single.html">Нет жестокому обращению с домашними животными</a></h4>-->
-<!--                        <p class="meta">Организатор: <strong>John Stewart</strong> In: <strong>Design</strong></p>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-3 text-md-right">-->
-<!--                        <h4>14 дней</h4>-->
-<!--                        <span class="meta">Окончание</span>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">-->
+                <!--                    <div class="col-md-2">-->
+                <!--                        &lt;!&ndash;                        <a href="job-single.html">&ndash;&gt;-->
+                <!--                        <img src="images/featured-listing-2.jpg" alt="Image" class="img-fluid">-->
+                <!--                        &lt;!&ndash;                        </a>&ndash;&gt;-->
+                <!--                    </div>-->
+                <!--                    <div class="col-md-7">-->
+                <!--                        &lt;!&ndash;                        <span class="badge badge-warning px-2 py-1 mb-3">Full-time</span>&ndash;&gt;-->
+                <!--                        <h4><a href="job-single.html">Нет жестокому обращению с домашними животными</a></h4>-->
+                <!--                        <p class="meta">Организатор: <strong>John Stewart</strong> In: <strong>Design</strong></p>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-md-3 text-md-right">-->
+                <!--                        <h4>14 дней</h4>-->
+                <!--                        <span class="meta">Окончание</span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div th:each="company:${companyPage.content}" class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">
+                <div th:each="company:${companyPage.content}"
+                     class="row align-items-start job-item border-bottom pb-3 mb-3 pt-3">
                     <div class="col-md-2">
                         <img src="images/featured-listing-2.jpg" alt="Image" class="img-fluid">
                     </div>
                     <div class="col-md-7">
                         <h4><a href="job-single.html" th:text="${company.name}"></a></h4>
-                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong> In: <strong>Design</strong></p>
+                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong> In: <strong>Design</strong>
+                        </p>
                     </div>
                     <div class="col-md-3 text-md-right">
                         <h4 th:text="${company.createdAt}"></h4>
@@ -260,7 +262,7 @@
                     <p class="mb-0 text-white lead">Запустите свою компанию в поддержку Вашей инициативы.</p>
                 </div>
                 <div class="col-md-3 ml-auto">
-                    <a href="#" class="btn btn-warning btn-block btn-lg">Создать компанию</a>
+                    <a th:href="@{/addCompany}" href="#" class="btn btn-warning btn-block btn-lg">Создать компанию</a>
                 </div>
             </div>
         </div>

@@ -110,39 +110,7 @@
     <section class="site-section">
         <div class="container">
             <div class="row">
-<!--                <div class="col-lg-6 mb-5">-->
-<!--                    <h2 class="mb-4">Sign Up To JobBoard</h2>-->
-<!--                    <form method="post" th:action="@{/register}" class="p-4 border rounded">-->
-
-<!--                        <div class="row form-group">-->
-<!--                            <div class="col-md-12 mb-3 mb-md-0">-->
-<!--                                <label class="text-black" for="fname">Email</label>-->
-<!--                                <input type="text" id="fname" name="login" class="form-control" placeholder="Login">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="row form-group">-->
-<!--                            <div class="col-md-12 mb-3 mb-md-0">-->
-<!--                                <label class="text-black" for="fname">Password</label>-->
-<!--                                <input type="password" id="fname" name="password" class="form-control"-->
-<!--                                       placeholder="Password">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;              <div class="row form-group mb-4">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                <div class="col-md-12 mb-3 mb-md-0">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                  <label class="text-black" for="fname">Re-Type Password</label>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                  <input type="password" id="fname" class="form-control" placeholder="Re-type Password">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--                        &lt;!&ndash;              </div>&ndash;&gt;-->
-
-<!--                        <div class="row form-group">-->
-<!--                            <div class="col-md-12">-->
-<!--                                <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                    </form>-->
-<!--                </div>-->
-                <div class="col-lg-6">
+                <div class="col-lg-8 offset-md-2">
                     <h2 class="mb-4">Log In To The CHOICE</h2>
                     <div class="validationError" th:if="${error}">Проверьте логин и пароль</div>
                     <form method="post" th:action="@{/login}" class="p-4 border rounded">

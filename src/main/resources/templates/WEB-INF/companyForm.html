@@ -103,10 +103,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Sign Up</h1>
+                    <h1 class="text-white font-weight-bold">Новая Компания</h1>
                     <div class="custom-breadcrumbs">
                         <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Sign Up</strong></span>
+                        <span class="text-white"><strong>Начать новую компанию</strong></span>
                     </div>
                 </div>
             </div>
@@ -115,118 +115,45 @@
 
     <section class="site-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-md-2">
-                    <h2 class="mb-4">Sign Up To The CHOICE</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mb-5">
+                    <h2 class="mb-4">Зарегистрировать Вашу Инициативу</h2>
                     <div class="validationError" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-                    <form method="post" th:action="@{/register}" th:object="${regForm}" class="p-4 border rounded">
+                    <form id="formId" method="post" th:action="@{/addCompany}" th:object="${companyForm}"
+                          class="p-4 border rounded">
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="login">Логин</label>
+                                <label class="text-black" for="name">Название компании</label>
                                 <p class="validationError"
-                                   th:if="${#fields.hasErrors('login')}"
-                                   th:errors="*{login}">Login error</p>
-                                <input type="text" id="login" th:field="*{login}" name="login" class="form-control"
-                                       placeholder="Your login">
+                                   th:if="${#fields.hasErrors('name')}"
+                                   th:errors="*{name}">Name error</p>
+                                <input type="text" id="name" th:field="*{name}" name="name" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="password">Пароль</label>
+                                <label class="text-black" for="description">Краткое описание компании</label>
                                 <p class="validationError"
-                                   th:if="${#fields.hasErrors('password')}"
-                                   th:errors="*{password}">Password error</p>
-                                <input type="password" id="password" th:field="*{password}" name="password"
-                                       class="form-control"
-                                       placeholder="Your password">
+                                   th:if="${#fields.hasErrors('description')}"
+                                   th:errors="*{description}">Description error</p>
+                                <textarea id="description" name="description" form="formId" th:field="*{description}"
+                                          class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="email">Email</label>
+                                <label class="text-black" for="duration">Продолжительность компании (дней)</label>
                                 <p class="validationError"
-                                   th:if="${#fields.hasErrors('email')}"
-                                   th:errors="*{email}">Email error</p>
-                                <input type="email" id="email" th:field="*{email}" name="email" class="form-control"
-                                       placeholder="email@example.com">
-                            </div>
-                        </div>
-                        <br/>
-                        <h3>Contact info</h3>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="firstname">Имя</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('firstname')}"
-                                   th:errors="*{firstname}">First name error</p>
-                                <input type="text" id="firstname" th:field="*{firstname}" name="firstname"
-                                       class="form-control" placeholder="Дмитрий">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="lastname">Фамилия</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('lastname')}"
-                                   th:errors="*{lastname}">Last name error</p>
-                                <input type="text" id="lastname" th:field="*{lastname}" name="lastname"
-                                       class="form-control" placeholder="Милославский">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="region">Область</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('region')}"
-                                   th:errors="*{region}">Region error</p>
-                                <input type="text" id="region" th:field="*{region}" name="region"
-                                       class="form-control" placeholder="Гродненская">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="district">Район</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('district')}"
-                                   th:errors="*{district}">District error</p>
-                                <input type="text" id="district" th:field="*{district}" name="district"
-                                       class="form-control" placeholder="Несвижский">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="city">Город</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('city')}"
-                                   th:errors="*{city}">City error</p>
-                                <input type="text" id="city" th:field="*{city}" name="city"
-                                       class="form-control" placeholder="Гродно">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="streetAddress">Улица и номер дома</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('streetAddress')}"
-                                   th:errors="*{streetAddress}">Address error</p>
-                                <input type="text" id="streetAddress" th:field="*{streetAddress}" name="streetAddress"
-                                       class="form-control" placeholder="Ленина 11">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="phoneNumber">Телефон</label>
-                                <p class="validationError"
-                                   th:if="${#fields.hasErrors('phoneNumber')}"
-                                   th:errors="*{phoneNumber}">Address error</p>
-                                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" name="phoneNumber"
-                                       class="form-control" placeholder="+375441112233">
+                                   th:if="${#fields.hasErrors('duration')}"
+                                   th:errors="*{duration}">Duration error</p>
+                                <input type="number" id="duration" th:field="*{duration}" name="duration" min="1"
+                                       class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">
+                                <input type="submit" value="Начать компанию" class="btn px-4 btn-primary text-white">
                             </div>
                         </div>
 

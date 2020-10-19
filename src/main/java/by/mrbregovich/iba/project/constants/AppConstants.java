@@ -23,4 +23,7 @@ public final class AppConstants {
 
     //
     public static final int COMPANIES_PAGE_SIZE = 5;
+    public static final String VALIDATION_DURATION = "Введите продолжительность компании в днях";
+    public static final String VALIDATION_DESCRIPTION = "Введите краткое описание компании";
+    public static final String VALIDATION_COMPANY_NAME = "Введите название компании";
 }

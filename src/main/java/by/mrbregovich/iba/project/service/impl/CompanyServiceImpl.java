@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.service.impl;
 
+import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.CompanyStatus;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
@@ -44,5 +45,20 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         return new PageImpl<Company>(list, PageRequest.of(currentPage, pageSize), companies.size());
+    }
+
+    @Override
+    public Company register(CompanyDto form) {
+
+
+
+
+
+
+
+
+
+
+        return null;
     }
 }

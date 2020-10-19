@@ -27,6 +27,9 @@ public class Company {
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
+    @Column(name = "duration", nullable = false)
+    private int durationInDays;
+
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private CompanyStatus companyStatus;
