@@ -2,20 +2,18 @@ package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
-import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.entity.Company;
-import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
+import by.mrbregovich.iba.project.entity.User;
+import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -61,13 +59,29 @@ public class CompanyController {
     }
 
     @PostMapping("/addCompany")
-    public ModelAndView processCompany(@Valid @ModelAttribute("companyForm") CompanyDto form, Errors errors) {
+    public ModelAndView processCompany(@Valid @ModelAttribute("companyForm") CompanyDto form, Errors errors,
+                                       @AuthenticationPrincipal User user) {
         ModelAndView modelAndView = new ModelAndView();
         if (errors.hasErrors()) {
             modelAndView.setViewName("companyForm");
         } else {
-            //companyService.register(form);
-            modelAndView.setViewName("redirect:/index");
+            Company company = companyService.register(form, user);
+
+            modelAndView.setViewName("redirect:/");
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("/companies/{id}")
+    public ModelAndView companyDetail(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Company company = companyService.findCompanyById(id);
+//            Compa
+            modelAndView.setViewName("single-company");
+        } catch (CompanyNotFoundException e) {
+//            modelAndView.addObject("errorMsg", e.getMessage());
+            modelAndView.setViewName("redirect:/");
         }
         return modelAndView;
     }

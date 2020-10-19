@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Table(name = "requests")
 public class Request {
 
     @Id

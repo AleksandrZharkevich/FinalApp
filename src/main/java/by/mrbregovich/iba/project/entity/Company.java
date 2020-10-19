@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "companies")
 public class Company {
 
     @Id
@@ -27,8 +29,8 @@ public class Company {
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
-    @Column(name = "duration", nullable = false)
-    private int durationInDays;
+    @Column(name = "endDate", nullable = false)
+    private LocalDate endDate;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -47,5 +49,10 @@ public class Company {
                 ", createdAt=" + createdAt +
                 ", owner_id=" + owner.getId() +
                 '}';
+    }
+
+    @Transient
+    public int daysLeft() {
+        return Period.between(LocalDate.now(), endDate).getDays();
     }
 }

@@ -1,10 +1,14 @@
 package by.mrbregovich.iba.project.service.impl;
 
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.CompanyStatus;
+import by.mrbregovich.iba.project.entity.User;
+import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
 import by.mrbregovich.iba.project.service.CompanyService;
+import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,7 +39,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         List<Company> companies = companyRepository.findAllByCompanyStatusOrderByCreatedAtDesc(CompanyStatus.ACTIVE);
         List<Company> list;
-        if(companies == null){
+        if (companies == null) {
             companies = Collections.emptyList();
         }
         if (companies.size() < startItem) {
@@ -48,17 +53,17 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company register(CompanyDto form) {
+    public Company register(CompanyDto form, User companyOwner) {
+        Company newCompany = Mapper.map(form, Company.class);
+        newCompany.setCompanyStatus(CompanyStatus.ACTIVE);
+        newCompany.setOwner(companyOwner);
+        newCompany.setCreatedAt(LocalDate.now());
+        newCompany.setEndDate(LocalDate.now().plusDays(form.getDuration()));
+        return companyRepository.save(newCompany);
+    }
 
-
-
-
-
-
-
-
-
-
-        return null;
+    @Override
+    public Company findCompanyById(Long id) throws CompanyNotFoundException {
+        return companyRepository.findById(id).orElseThrow(() -> new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
     }
 }
