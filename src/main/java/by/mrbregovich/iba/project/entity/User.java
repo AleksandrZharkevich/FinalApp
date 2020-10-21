@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -96,36 +97,42 @@ public class User implements UserDetails {
         role.getUsers().add(this);
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public String getUsername() {
         return login;
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public boolean isAccountNonLocked() {
         return userStatus != UserStatus.DELETED && userStatus != UserStatus.NOT_ACTIVE;
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Transient
     @Override
     public boolean isEnabled() {

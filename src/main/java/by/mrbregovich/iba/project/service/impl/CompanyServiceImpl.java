@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -31,7 +32,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Page<Company> findActiveByPage(Pageable pageable) {
+    public Page<Company> findActiveCompaniesByPage(Pageable pageable) {
 
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -50,6 +51,18 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         return new PageImpl<Company>(list, PageRequest.of(currentPage, pageSize), companies.size());
+    }
+
+    @Override
+    public List<Company> findActiveCompaniesByPageNumber(int pageNumber, int pageSize) {
+        List<Company> companies = companyRepository.findAllByCompanyStatusOrderByCreatedAtDesc(CompanyStatus.ACTIVE);
+        List<Company> list;
+        if (companies == null) {
+            list = Collections.emptyList();
+        } else {
+            list = companies.stream().skip(pageSize * (pageNumber - 1)).limit(pageSize).collect(Collectors.toList());
+        }
+        return list;
     }
 
     @Override

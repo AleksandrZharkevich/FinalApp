@@ -7,8 +7,13 @@ import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface CompanyService {
-    Page<Company> findActiveByPage(Pageable pageable);
+
+    Page<Company> findActiveCompaniesByPage(Pageable pageable);
+
+    List<Company> findActiveCompaniesByPageNumber(int pageNumber, int pageSize);
 
     Company register(CompanyDto form, User companyOwner);
 

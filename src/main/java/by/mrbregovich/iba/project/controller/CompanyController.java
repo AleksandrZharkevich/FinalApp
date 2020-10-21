@@ -38,7 +38,7 @@ public class CompanyController {
         int currentPage = page.orElse(1);
         int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
 
-        Page<Company> companyPage = companyService.findActiveByPage(PageRequest.of(currentPage - 1, pageSize));
+        Page<Company> companyPage = companyService.findActiveCompaniesByPage(PageRequest.of(currentPage - 1, pageSize));
 
         model.addAttribute("companyPage", companyPage);
 
