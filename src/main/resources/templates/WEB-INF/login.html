@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <title>The Choice</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 
     <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
     <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
     <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
 
-
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body id="top">
 
@@ -24,9 +24,7 @@
     </div>
 </div>
 
-
 <div class="site-wrap">
-
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
             <div class="site-mobile-menu-close mt-3">
@@ -36,60 +34,8 @@
         <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-
     <!-- NAVBAR -->
-    <header class="site-navbar mt-3">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="site-logo col-6"><a th:href="@{/}">THE CHOICE</a></div>
-
-                <nav class="mx-auto site-navigation">
-                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                        <li><a th:href="@{/}" class="nav-link active">Home</a></li>
-                        <!--              <li><a href="about.html">About</a></li>-->
-                        <li><a href="#">About</a></li>
-                        <li class="has-children">
-                            <a href="#">Job Listings</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Job Single</a></li>
-                                <li><a href="#">Post a Job</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Service Single</a></li>
-                                <li><a href="#">Blog Single</a></li>
-                                <li><a href="#">Portfolio</a></li>
-                                <li><a href="#">Portfolio Single</a></li>
-                                <li><a href="#">Testimonials</a></li>
-                                <li><a href="#">Frequently Ask Questions</a></li>
-                                <li><a href="#">Gallery</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li class="d-lg-none"><a href="#"><span class="mr-2">+</span> Register</a></li>
-                        <li class="d-lg-none"><a href="#">Log In</a></li>
-                    </ul>
-                </nav>
-
-                <div class="right-cta-menu text-right d-flex align-items-center col-6">
-                    <div class="ml-auto">
-                        <a th:href="@{/register}"
-                           class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
-                                class="mr-2 icon-add"></span>Register</a>
-                        <a th:href="@{/login}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                                class="mr-2 icon-lock_outline"></span>Log In</a>
-                    </div>
-                    <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
-                            class="icon-menu h3 m-0 p-0 mt-2"></span></a>
-                </div>
-
-            </div>
-        </div>
-    </header>
+    <div th:replace="baseFragment::header"></div>
 
     <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/start.jpg');"
@@ -141,127 +87,13 @@
         </div>
     </section>
 
-    <footer class="site-footer">
-
-        <a href="#top" class="smoothscroll scroll-top">
-            <span class="icon-keyboard_arrow_up"></span>
-        </a>
-
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Search Trending</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Graphic Design</a></li>
-                        <li><a href="#">Web Developers</a></li>
-                        <li><a href="#">Python</a></li>
-                        <li><a href="#">HTML5</a></li>
-                        <li><a href="#">CSS3</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Company</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Support</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Contact Us</h3>
-                    <div class="footer-social">
-                        <a href="#"><span class="icon-facebook"></span></a>
-                        <a href="#"><span class="icon-twitter"></span></a>
-                        <a href="#"><span class="icon-instagram"></span></a>
-                        <a href="#"><span class="icon-linkedin"></span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row text-center">
-                <div class="col-12">
-                    <p class="copyright"><small>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                            aria-hidden="true"></i> by <a
-                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- FOOTER -->
+    <div th:replace="baseFragment::footer"></div>
 
 </div>
 
 <!-- SCRIPTS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"
-        integrity="sha512-kBFfSXuTKZcABVouRYGnUo35KKa1FBrYgwG4PAx7Z2Heroknm0ca2Fm2TosdrrI356EDHMW383S3ISrwKcVPUw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
-        integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js"
-        integrity="sha512-dmLpQXesGDP0ZM/s8zGKQU3Xlbix57QfwFNFh+BY5Ad/afObQ/lBo200mHWuHu8LOoI7tlK09yP3L/4DjdQ5Xw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
-        integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css"
-      integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"
-        integrity="sha512-xq+0+dRhI6SZOh+lDnMJEju2p2YPINflJLcYrRAsIMaXnJi6/V3lppCMCYsB2MLeF2E93r+fVo0MioY90pNzpw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
-        integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"
-        integrity="sha512-WY7Piz2TwYjkLlgxw9DONwf5ixUOBnL3Go+FSdqRxhKlOqx9F+ee/JsablX84YBPLQzUPJsZvV88s8YOJ4S/UA=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
-        integrity="sha512-/xmIG37mK4F8x9kBvSoZjbkcQ4/y2AbV5wv+lr/xYhdZRjXc32EuRasTpg7yIdt0STl6xyIq+rwb4nbUmrU/1g=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css"
-      integrity="sha512-8IKwXYhvXkrNGaU06NnGsiDqJign94kk5+AAdTu4wR3hkuU5x2Weo1evN3xYSpnRtIJNLwAT2/R4ITAAv0IhdA=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.min.js"
-        integrity="sha512-P2W2rr8ikUPfa31PLBo5bcBQrsa+TNj8jiKadtaIrHQGMo6hQM6RdPjQYxlNguwHz8AwSQ28VkBK6kHBLgd/8g=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.css"
-      integrity="sha512-XMxqcAfuPHOh2Kz0Z3oDynUcLgyKP6B1NCKUTxyVbM02u1ZrygDcLddKw7KpN/SGmdw8raHbKgaIHP7+bEfGYw=="
-      crossorigin="anonymous"/>
-
-
-<script src="js/custom.js"></script>
-
+<div th:replace="baseFragment::scripts"></div>
 
 </body>
 </html>

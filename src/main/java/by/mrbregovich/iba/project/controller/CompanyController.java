@@ -77,8 +77,8 @@ public class CompanyController {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Company company = companyService.findCompanyById(id);
-//            Compa
             modelAndView.setViewName("single-company");
+            modelAndView.addObject("company", company);
         } catch (CompanyNotFoundException e) {
 //            modelAndView.addObject("errorMsg", e.getMessage());
             modelAndView.setViewName("redirect:/");

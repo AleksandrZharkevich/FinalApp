@@ -36,6 +36,9 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private CompanyStatus companyStatus;
 
+    @Column(name = "image_url", nullable = false)
+    private String imgUrl;
+
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;

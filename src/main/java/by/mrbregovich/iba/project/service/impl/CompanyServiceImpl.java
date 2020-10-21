@@ -57,6 +57,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company newCompany = Mapper.map(form, Company.class);
         newCompany.setCompanyStatus(CompanyStatus.ACTIVE);
         newCompany.setOwner(companyOwner);
+        newCompany.setImgUrl(AppConstants.NO_IMG_SRC);
         newCompany.setCreatedAt(LocalDate.now());
         newCompany.setEndDate(LocalDate.now().plusDays(form.getDuration()));
         return companyRepository.save(newCompany);
