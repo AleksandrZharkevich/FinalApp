@@ -10,3 +10,18 @@
     color: red;
     font-style: italic;
 }
+
+.ajaxLink {
+    cursor: pointer;
+    color: #89ba16;
+    text-decoration: underline;
+    margin: 5px;
+}
+
+.ajaxLink:hover {
+    text-decoration: none;
+}
+
+.currentLink {
+    text-decoration: none;
+}
