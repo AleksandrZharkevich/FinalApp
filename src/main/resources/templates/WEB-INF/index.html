@@ -40,7 +40,8 @@
     <div th:replace="baseFragment::header"></div>
 
     <!-- HOME -->
-    <section class="home-section section-hero overlay bg-image" style="background-image: url('images/start.jpg');"
+    <section class="home-section section-hero overlay bg-image"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'"
              id="home-section">
 
         <div class="container">

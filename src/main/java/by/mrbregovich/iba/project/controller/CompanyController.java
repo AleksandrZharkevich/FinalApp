@@ -73,16 +73,14 @@ public class CompanyController {
     }
 
     @GetMapping("/companies/{id}")
-    public ModelAndView companyDetail(@PathVariable("id") Long id) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String companyDetail(Model model, @PathVariable("id") Long id) {
         try {
             Company company = companyService.findCompanyById(id);
-            modelAndView.setViewName("single-company");
-            modelAndView.addObject("company", company);
+            model.addAttribute("company", company);
+            return "single-company";
         } catch (CompanyNotFoundException e) {
 //            modelAndView.addObject("errorMsg", e.getMessage());
-            modelAndView.setViewName("redirect:/");
         }
-        return modelAndView;
+        return "redirect:/";
     }
 }

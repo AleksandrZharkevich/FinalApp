@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <title>The Choice</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,15 +14,16 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body id="top">
 
-<div id="overlayer"></div>
-<div class="loader">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
+<!--<div id="overlayer"></div>-->
+<!--<div class="loader">-->
+<!--    <div class="spinner-border text-primary" role="status">-->
+<!--        <span class="sr-only">Loading...</span>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <div class="site-wrap">
@@ -36,17 +37,17 @@
         <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-
     <!-- NAVBAR -->
     <div th:replace="baseFragment::header"></div>
 
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/start.jpg');"
+    <section class="section-hero overlay inner-page bg-image"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'"
              id="home-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold">Product Designer</h1>
+                    <h1 class="text-white font-weight-bold" th:text="${company.name}">Product Designer</h1>
                     <div class="custom-breadcrumbs">
                         <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
                         <span class="text-white"><strong>Companies</strong></span><span class="mx-2 slash">/</span>
@@ -63,15 +64,10 @@
                 <div class="col-lg-8 mb-4 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div class="border p-2 d-inline-block mr-3 rounded">
-                            <img src="images/job_logo_5.jpg" alt="Image">
+                            <img th:src="@{${company.imgUrl}}" alt="Image">
                         </div>
                         <div>
-                            <h2>Product Designer</h2>
-                            <div>
-                                <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Puma</span>
-                                <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
-                                <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
-                            </div>
+                            <h2 th:text="${company.name}">Product Designer</h2>
                         </div>
                     </div>
                 </div>
@@ -79,10 +75,10 @@
                     <div class="row">
                         <div class="col-6">
                             <a href="#" class="btn btn-block btn-light btn-md"><span
-                                    class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
+                                    class="icon-credit-card mr-2 text-danger"></span>Помочь</a>
                         </div>
                         <div class="col-6">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                            <a href="#" class="btn btn-block btn-primary btn-md">Присоединиться</a>
                         </div>
                     </div>
                 </div>
@@ -90,90 +86,16 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="mb-5">
-                        <figure class="mb-5"><img src="images/job_single_img_1.jpg" alt="Image"
-                                                  class="img-fluid rounded"></figure>
                         <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span
-                                class="icon-align-left mr-3"></span>Job Description</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet.
+                                class="icon-align-left mr-3"></span>Описание проекта</h3>
+                        <p th:text="${company.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet.
                             Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo
                             blanditiis iste eius officia minus.</p>
-                        <p>Velit unde aliquam et voluptas reiciendis non sapiente labore, deleniti asperiores blanditiis
-                            nihil quia officiis dolor vero iste dolore vel molestiae saepe. Id nisi, consequuntur sunt
-                            impedit quidem, vitae mollitia!</p>
-                    </div>
-                    <div class="mb-5">
-                        <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span
-                                class="icon-rocket mr-3"></span>Responsibilities</h3>
-                        <ul class="list-unstyled m-0 p-0">
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis n Velit unde aliquam et voluptas reiciendis non sapiente labore</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span>
-                            </li>
-                        </ul>
                     </div>
 
-                    <div class="mb-5">
-                        <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span class="icon-book mr-3"></span>Education
-                            + Experience</h3>
-                        <ul class="list-unstyled m-0 p-0">
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis non sapiente labore</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="mb-5">
-                        <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span
-                                class="icon-turned_in mr-3"></span>Other Benifits</h3>
-                        <ul class="list-unstyled m-0 p-0">
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Necessitatibus quibusdam facilis</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Velit unde aliquam et voluptas reiciendis non sapiente labore</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Commodi quae ipsum quas est itaque</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                            </li>
-                            <li class="d-flex align-items-start mb-2"><span
-                                    class="icon-check_circle mr-2 text-muted"></span><span>Deleniti asperiores blanditiis nihil quia officiis dolor</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="row mb-5">
-                        <div class="col-6">
-                            <a href="#" class="btn btn-block btn-light btn-md"><span
-                                    class="icon-heart-o mr-2 text-danger"></span>Save Job</a>
-                        </div>
-                        <div class="col-6">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Apply Now</a>
+                    <div class="row mb-5 justify-content-end">
+                        <div class="col-5">
+                            <a href="#" class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
                         </div>
                     </div>
 
@@ -194,21 +116,13 @@
                         </ul>
                     </div>
 
-                    <div class="bg-light p-3 border rounded">
-                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Share</h3>
-                        <div class="px-3">
-                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
-                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-pinterest"></span></a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
 
+
+    <!--    только для участников компании-->
     <section class="site-section" id="next">
         <div class="container">
 
@@ -358,7 +272,6 @@
                     </div>
                 </li>
 
-
             </ul>
 
             <div class="row pagination-wrap">
@@ -382,187 +295,13 @@
         </div>
     </section>
 
-
-    <section class="bg-light pt-5 testimony-full">
-
-        <div class="owl-carousel single-carousel">
-
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 align-self-center text-center text-lg-left">
-                        <blockquote>
-                            <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium
-                                libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem
-                                voluptatum repudiandae.&rdquo;</p>
-                            <p><cite> &mdash; Corey Woods, @Dribbble</cite></p>
-                        </blockquote>
-                    </div>
-                    <div class="col-lg-6 align-self-end text-center text-lg-right">
-                        <img src="images/person_transparent_2.png" alt="Image" class="img-fluid mb-0">
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 align-self-center text-center text-lg-left">
-                        <blockquote>
-                            <p>&ldquo;Soluta quasi cum delectus eum facilis recusandae nesciunt molestias accusantium
-                                libero dolores repellat id in dolorem laborum ad modi qui at quas dolorum voluptatem
-                                voluptatum repudiandae.&rdquo;</p>
-                            <p><cite> &mdash; Chris Peters, @Google</cite></p>
-                        </blockquote>
-                    </div>
-                    <div class="col-lg-6 align-self-end text-center text-lg-right">
-                        <img src="images/person_transparent.png" alt="Image" class="img-fluid mb-0">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
-                    <h2 class="text-white">Get The Mobile Apps</h2>
-                    <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora
-                        adipisci impedit.</p>
-                    <p class="mb-0">
-                        <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span
-                                class="icon-apple mr-3"></span>App Store</a>
-                        <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span
-                                class="icon-android mr-3"></span>Play Store</a>
-                    </p>
-                </div>
-                <div class="col-md-6 ml-auto align-self-end">
-                    <img src="images/apps.png" alt="Image" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="site-footer">
-
-        <a href="#top" class="smoothscroll scroll-top">
-            <span class="icon-keyboard_arrow_up"></span>
-        </a>
-
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Search Trending</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Graphic Design</a></li>
-                        <li><a href="#">Web Developers</a></li>
-                        <li><a href="#">Python</a></li>
-                        <li><a href="#">HTML5</a></li>
-                        <li><a href="#">CSS3</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Company</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Support</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3 mb-4 mb-md-0">
-                    <h3>Contact Us</h3>
-                    <div class="footer-social">
-                        <a href="#"><span class="icon-facebook"></span></a>
-                        <a href="#"><span class="icon-twitter"></span></a>
-                        <a href="#"><span class="icon-instagram"></span></a>
-                        <a href="#"><span class="icon-linkedin"></span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row text-center">
-                <div class="col-12">
-                    <p class="copyright"><small>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                            aria-hidden="true"></i> by <a
-                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- FOOTER -->
+    <div th:replace="baseFragment::footer"></div>
 
 </div>
 
 <!-- SCRIPTS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"
-        integrity="sha512-kBFfSXuTKZcABVouRYGnUo35KKa1FBrYgwG4PAx7Z2Heroknm0ca2Fm2TosdrrI356EDHMW383S3ISrwKcVPUw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
-        integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js"
-        integrity="sha512-dmLpQXesGDP0ZM/s8zGKQU3Xlbix57QfwFNFh+BY5Ad/afObQ/lBo200mHWuHu8LOoI7tlK09yP3L/4DjdQ5Xw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
-        integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css"
-      integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"
-        integrity="sha512-xq+0+dRhI6SZOh+lDnMJEju2p2YPINflJLcYrRAsIMaXnJi6/V3lppCMCYsB2MLeF2E93r+fVo0MioY90pNzpw=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"
-        integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA=="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-animateNumber/0.0.14/jquery.animateNumber.min.js"
-        integrity="sha512-WY7Piz2TwYjkLlgxw9DONwf5ixUOBnL3Go+FSdqRxhKlOqx9F+ee/JsablX84YBPLQzUPJsZvV88s8YOJ4S/UA=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
-        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-      crossorigin="anonymous"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
-        integrity="sha512-/xmIG37mK4F8x9kBvSoZjbkcQ4/y2AbV5wv+lr/xYhdZRjXc32EuRasTpg7yIdt0STl6xyIq+rwb4nbUmrU/1g=="
-        crossorigin="anonymous"></script>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css"
-      integrity="sha512-8IKwXYhvXkrNGaU06NnGsiDqJign94kk5+AAdTu4wR3hkuU5x2Weo1evN3xYSpnRtIJNLwAT2/R4ITAAv0IhdA=="
-      crossorigin="anonymous"/>
-
+<div th:replace="baseFragment::scripts"></div>
 
 </body>
 </html>

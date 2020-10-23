@@ -35,10 +35,13 @@ public class Request {
     @JsonBackReference
     @NonNull
     @ManyToOne
-    @JoinTable(name = "user_requests",
-            joinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @JoinColumn(name = "request_manager", referencedColumnName = "id")
     private User manager;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
     @Override
     public String toString() {
@@ -47,6 +50,7 @@ public class Request {
                 ", placedAt=" + placedAt +
                 ", requestStatus=" + requestStatus +
                 ", contact_id=" + contact.getId() +
+                ", company_id=" + company.getId() +
                 ", manager_id=" + (manager != null ? manager.getId() : "null") +
                 '}';
     }

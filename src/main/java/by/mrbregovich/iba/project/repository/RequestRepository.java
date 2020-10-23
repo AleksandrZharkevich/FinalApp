@@ -10,11 +10,13 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-    Request findByContact_PhoneNumber(String phoneNumber);
+    Request findByContact_PhoneNumberAndCompany_Id(String phoneNumber, Long id);
 
-    List<Request> findAllByManager_Login(String login);
+    List<Request> findAllByManager_LoginAndCompany_Id(String login, Long id);
 
-    List<Request> findAllByManager_Id(Long id);
+    List<Request> findAllByManager_IdAndCompany_Id(Long managerId, Long companyId);
 
-    List<Request> findAllByRequestStatusIs(RequestStatus requestStatus);
+    List<Request> findAllByRequestStatusIsAndCompany_Id(RequestStatus requestStatus, Long id);
+
+    List<Request> findAllByCompany_Id(Long id);
 }

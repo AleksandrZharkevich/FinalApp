@@ -55,6 +55,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "manager", targetEntity = Request.class)
     private List<Request> requests;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "owner", targetEntity = Company.class)
+    private List<Company> companies;
+
     public User() {
         this.roles = new ArrayList<>();
         this.requests = new ArrayList<>();

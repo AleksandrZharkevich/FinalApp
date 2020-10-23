@@ -1,5 +1,7 @@
 package by.mrbregovich.iba.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -39,9 +42,14 @@ public class Company {
     @Column(name = "image_url", nullable = false)
     private String imgUrl;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "company", targetEntity = Request.class)
+    private List<Request> requests;
 
     @Override
     public String toString() {

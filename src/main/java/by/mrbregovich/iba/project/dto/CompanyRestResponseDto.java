@@ -1,9 +1,12 @@
 package by.mrbregovich.iba.project.dto;
 
 import by.mrbregovich.iba.project.entity.Company;
+import by.mrbregovich.iba.project.entity.Request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +21,8 @@ public class CompanyRestResponseDto {
 
     private String ownerLogin;
 
+    private long ownerId;
+
     private int daysLeft;
 
     public static CompanyRestResponseDto of(Company company) {
@@ -26,6 +31,7 @@ public class CompanyRestResponseDto {
         companyRestResponseDto.setName(company.getName());
         companyRestResponseDto.setImgUrl(company.getImgUrl());
         companyRestResponseDto.setOwnerLogin(company.getOwner().getLogin());
+        companyRestResponseDto.setOwnerId(company.getOwner().getId());
         companyRestResponseDto.setDaysLeft(company.daysLeft());
         return companyRestResponseDto;
     }

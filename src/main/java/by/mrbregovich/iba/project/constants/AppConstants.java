@@ -8,6 +8,7 @@ public final class AppConstants {
     public static final String LOGIN_NOT_FOUND_MSG = "Пользователь с таким логином не найдет";
     public static final String USER_ID_NOT_FOUND_MSG = "Пользователь с таким id не найден";
     public static final String COMPANY_ID_NOT_FOUND_MSG = "Компания с таким id не найдена";
+    public static final String REQUEST_WITH_PHONE_ALREADY_REGISTERED = "Заявка с таким номером телефона уже зарегистрирована";
 
     //ValidationMessages
     public static final String VALIDATION_LOGIN = "Введите логин";
