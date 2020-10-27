@@ -1,12 +1,9 @@
 package by.mrbregovich.iba.project.dto;
 
 import by.mrbregovich.iba.project.entity.Company;
-import by.mrbregovich.iba.project.entity.Request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

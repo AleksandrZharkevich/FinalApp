@@ -73,11 +73,20 @@ public class CompanyServiceImpl implements CompanyService {
         newCompany.setImgUrl(AppConstants.NO_IMG_SRC);
         newCompany.setCreatedAt(LocalDate.now());
         newCompany.setEndDate(LocalDate.now().plusDays(form.getDuration()));
+        newCompany.setDonate(0);
         return companyRepository.save(newCompany);
     }
 
     @Override
     public Company findCompanyById(Long id) throws CompanyNotFoundException {
         return companyRepository.findById(id).orElseThrow(() -> new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
+    }
+
+    @Override
+    public Company addDonate(Long id, Integer amount) throws CompanyNotFoundException {
+        Company company = companyRepository.findById(id).orElseThrow(() ->
+                new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
+        company.setDonate(company.getDonate() + amount);
+        return companyRepository.save(company);
     }
 }

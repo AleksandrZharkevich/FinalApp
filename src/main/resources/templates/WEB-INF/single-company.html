@@ -50,7 +50,7 @@
                     <h1 class="text-white font-weight-bold" th:text="${company.name}">Product Designer</h1>
                     <div class="custom-breadcrumbs">
                         <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Companies</strong></span><span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Company</strong></span><span class="mx-2 slash">/</span>
                         <span class="text-white"><strong th:text="${company.id}"></strong></span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-6">
-                            <a href="#" class="btn btn-block btn-light btn-md"><span
+                            <a id="donateBtn" class="btn btn-block btn-light btn-md"><span
                                     class="icon-credit-card mr-2 text-danger"></span>Помочь</a>
                         </div>
                         <div class="col-6">
@@ -83,19 +83,43 @@
                     </div>
                 </div>
             </div>
+            <div id="donatePanel" class="row justify-content-end">
+                <div class="col-lg-8 justify-content-end">
+                    <div id="donate" class="row justify-content-end">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <input id="donateAmount" type="number" min="1" class="form-control form-control-lg"
+                                   placeholder="1">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button id="sendDonateBtn" class="btn btn-block btn-light btn-md"
+                                    th:onclick="'sendDonate(\'' + ${company.id} + '\')'">
+                                <span class="icon-dollar icon mr-2"></span>Перечислить
+                            </button>
+                        </div>
+                    </div>
+                    <div id="donateMsg" class="justify-content-end">
+                        <h3 class="h5 d-flex align-items-center mb-4 text-primary">Благодарности</h3>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="mb-5">
                         <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span
                                 class="icon-align-left mr-3"></span>Описание проекта</h3>
-                        <p th:text="${company.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis illum fuga eveniet.
+                        <p th:text="${company.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Debitis illum fuga eveniet.
                             Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo
                             blanditiis iste eius officia minus.</p>
                     </div>
 
                     <div class="row mb-5 justify-content-end">
-                        <div class="col-5">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
+                        <div sec:authorize="isAuthenticated()" class="col-4">
+                            <a href="#" class="btn btn-block btn-light btn-md">Изменить</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" th:href="@{'/request/' + ${company.id}}"
+                               class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
                         </div>
                     </div>
 
@@ -121,173 +145,45 @@
         </div>
     </section>
 
-
     <!--    только для участников компании-->
-    <section class="site-section" id="next">
-        <div class="container">
-
+    <section sec:authorize="isAuthenticated()" class="site-section" id="next">
+        <div id="requestContainer" class="container">
             <div class="row mb-5 justify-content-center">
                 <div class="col-md-7 text-center">
-                    <h2 class="section-title mb-2">22,392 Related Jobs</h2>
+                    <h2 class="section-title mb-2">Поданные заявки</h2>
                 </div>
             </div>
 
-            <ul class="job-listings mb-5">
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
-                    </div>
-
+            <ul id="requests" class="job-listings mb-5">
+                <li th:each="request: ${activeRequests}"
+                    class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
                     <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
                         <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Product Designer</h2>
-                            <strong>Adidas</strong>
+                            <h2>[[${request.contact.city}]], [[${request.contact.streetAddress}]]</h2>
                         </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> New York, New York
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-danger">Part Time</span>
-                        </div>
-                    </div>
-
-                </li>
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Digital Marketing Director</h2>
-                            <strong>Sprint</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> Overland Park, Kansas
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-30">
+                            <span class="icon-room"></span>[[${request.contact.region}]] область,
+                            [[${request.contact.district}]] район
                         </div>
                         <div class="job-listing-meta">
-                            <span class="badge badge-success">Full Time</span>
+                            <span class="badge badge-success link">Обработать</span>
                         </div>
                     </div>
                 </li>
-
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_3.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Back-end Engineer (Python)</h2>
-                            <strong>Amazon</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> Overland Park, Kansas
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-success">Full Time</span>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_4.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Senior Art Director</h2>
-                            <strong>Microsoft</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> Anywhere
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-success">Full Time</span>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_5.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Product Designer</h2>
-                            <strong>Puma</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> San Mateo, CA
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-success">Full Time</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_1.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Product Designer</h2>
-                            <strong>Adidas</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> New York, New York
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-danger">Part Time</span>
-                        </div>
-                    </div>
-
-                </li>
-                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <a href="job-single.html"></a>
-                    <div class="job-listing-logo">
-                        <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
-                    </div>
-
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>Digital Marketing Director</h2>
-                            <strong>Sprint</strong>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                            <span class="icon-room"></span> Overland Park, Kansas
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-success">Full Time</span>
-                        </div>
-                    </div>
-                </li>
-
             </ul>
 
-            <div class="row pagination-wrap">
-                <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
-                    <span>Showing 1-7 Of 22,392 Jobs</span>
-                </div>
+            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">
                 <div class="col-md-6 text-center text-md-right">
                     <div class="custom-pagination ml-auto">
-                        <a href="#" class="prev">Prev</a>
-                        <div class="d-inline-block">
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
+                        <div id="pages" class="d-inline-block">
+                            <span th:each="pageNumber: ${pageNumbers}"
+                                  th:text="${pageNumber}"
+                                  th:data-page="${pageNumber}"
+                                  th:onclick="'loadRequests(\'' + ${company.id} + '\', \'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "
+                                  th:class="ajaxLink"
+                                  th:classappend="${pageNumber== 1} ? currentLink">
+                            </span>
                         </div>
-                        <a href="#" class="next">Next</a>
                     </div>
                 </div>
             </div>
@@ -302,6 +198,7 @@
 
 <!-- SCRIPTS -->
 <div th:replace="baseFragment::scripts"></div>
+<script th:src="@{/js/singleCompanyFunctions.js}"></script>
 
 </body>
 </html>

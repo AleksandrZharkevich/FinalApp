@@ -84,7 +84,9 @@
                                    th:if="${#fields.hasErrors('description')}"
                                    th:errors="*{description}">Description error</p>
                                 <textarea id="description" name="description" form="formId" th:field="*{description}"
-                                          class="form-control"></textarea>
+                                          class="form-control editor"></textarea>
+<!--                                <div id="description" name="description" form="formId" th:field="*{description}"-->
+<!--                                          class="form-control editor"></div>-->
                             </div>
                         </div>
                         <div class="row form-group">

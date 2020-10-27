@@ -256,6 +256,13 @@ jQuery(function($) {
 			  placeholder: 'Compose an epic...',
 			  theme: 'snow'  // or 'bubble'
 			});
+			var quill = new Quill('#description', {
+				modules: {
+					toolbar: toolbarOptions,
+				},
+				placeholder: 'Compose an epic...',
+				theme: 'snow'  // or 'bubble'
+			});
 		}
 
 	}

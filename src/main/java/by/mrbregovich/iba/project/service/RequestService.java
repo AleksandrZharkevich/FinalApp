@@ -1,6 +1,7 @@
 package by.mrbregovich.iba.project.service;
 
 import by.mrbregovich.iba.project.dto.ContactDto;
+import by.mrbregovich.iba.project.dto.RequestRestResponseDto;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.exception.RequestAlreadyRegistered;
@@ -21,5 +22,5 @@ public interface RequestService {
 
     List<Request> allByManagerId(Long managerId, Long companyId);
 
-    Page<Request> findRegisteredRequestsByPageAndCompanyId(Pageable pageable, Long id);
+    List<RequestRestResponseDto> findRegisteredRequestsByCompanyIdAndPageNumber(Long id, Integer pageNumber);
 }

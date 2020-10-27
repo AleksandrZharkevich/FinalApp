@@ -25,3 +25,11 @@
 .currentLink {
     text-decoration: none;
 }
+
+#donatePanel, #donateMsg {
+    display: none;
+}
+
+.link {
+    cursor: pointer;
+}

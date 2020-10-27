@@ -2,15 +2,13 @@ package by.mrbregovich.iba.project.rest;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyRestResponseDto;
+import by.mrbregovich.iba.project.dto.DonateDto;
+import by.mrbregovich.iba.project.dto.ResponseMessage;
 import by.mrbregovich.iba.project.entity.Company;
+import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,5 +39,18 @@ public class CompanyRestController {
             list = companies.stream().map(CompanyRestResponseDto::of).collect(Collectors.toList());
         }
         return list;
+    }
+
+    @GetMapping("/donate/{companyId}/{amount}")
+    public ResponseMessage donate(@PathVariable("companyId") Long companyId, @PathVariable("amount") Integer amount) {
+        if (amount <= 0) {
+            return new ResponseMessage(AppConstants.AMOUNT_MUST_BE_POSITIVE);
+        }
+        try {
+            companyService.addDonate(companyId, amount);
+        } catch (CompanyNotFoundException e) {
+            return new ResponseMessage(AppConstants.COMPANY_ID_NOT_FOUND_MSG);
+        }
+        return new ResponseMessage(AppConstants.THANKS_FOR_DONATE);
     }
 }

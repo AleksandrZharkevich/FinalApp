@@ -2,7 +2,7 @@ package by.mrbregovich.iba.project.service.impl;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.ContactDto;
-import by.mrbregovich.iba.project.entity.Company;
+import by.mrbregovich.iba.project.dto.RequestRestResponseDto;
 import by.mrbregovich.iba.project.entity.Contact;
 import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.entity.RequestStatus;
@@ -12,15 +12,12 @@ import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -85,23 +82,18 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Page<Request> findRegisteredRequestsByPageAndCompanyId(Pageable pageable, Long companyId) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-
+    public List<RequestRestResponseDto> findRegisteredRequestsByCompanyIdAndPageNumber(Long companyId, Integer pageNumber) {
+        int pageSize = AppConstants.REQUESTS_PAGE_SIZE;
+        int itemsToSkip = (pageNumber - 1) * pageSize;
         List<Request> requests = requestRepository.findAllByRequestStatusIsAndCompany_Id(RequestStatus.REGISTERED, companyId);
-        List<Request> list;
         if (requests == null) {
-            requests = Collections.emptyList();
+            return Collections.emptyList();
         }
-        if (requests.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, requests.size());
-            list = requests.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<Request>(list, PageRequest.of(currentPage, pageSize), requests.size());
+        return requests.stream()
+                .sorted((r1, r2) -> r2.getPlacedAt().compareTo(r1.getPlacedAt()))
+                .skip(itemsToSkip)
+                .limit(pageSize)
+                .map(RequestRestResponseDto::of)
+                .collect(Collectors.toList());
     }
 }

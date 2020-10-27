@@ -3,6 +3,8 @@ package by.mrbregovich.iba.project.controller;
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.entity.Company;
+import by.mrbregovich.iba.project.entity.Request;
+import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,7 +70,6 @@ public class CompanyController {
             modelAndView.setViewName("companyForm");
         } else {
             Company company = companyService.register(form, user);
-
             modelAndView.setViewName("redirect:/");
         }
         return modelAndView;
@@ -77,6 +80,20 @@ public class CompanyController {
         try {
             Company company = companyService.findCompanyById(id);
             model.addAttribute("company", company);
+            List<Request> activeRequests = company.getRequests().stream()
+                    .filter(request -> request.getRequestStatus() == RequestStatus.REGISTERED)
+                    .sorted((r1, r2) -> r2.getPlacedAt().compareTo(r1.getPlacedAt()))
+                    .limit(AppConstants.REQUESTS_PAGE_SIZE)
+                    .collect(Collectors.toList());
+            model.addAttribute("activeRequests", activeRequests);
+            long totalRequestsCount = company.getRequests().stream()
+                    .filter(request -> request.getRequestStatus() == RequestStatus.REGISTERED).count();
+            List<Integer> pageNumbers = new ArrayList<>();
+            if (totalRequestsCount > AppConstants.REQUESTS_PAGE_SIZE) {
+                int totalPages = (int) Math.ceil(totalRequestsCount / (AppConstants.REQUESTS_PAGE_SIZE * 1.0));
+                pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            }
+            model.addAttribute("pageNumbers", pageNumbers);
             return "single-company";
         } catch (CompanyNotFoundException e) {
 //            modelAndView.addObject("errorMsg", e.getMessage());

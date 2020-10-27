@@ -28,5 +28,8 @@ public final class AppConstants {
 
     //
     public static final int COMPANIES_PAGE_SIZE = 5;
+    public static final int REQUESTS_PAGE_SIZE = 2;
     public static final String NO_IMG_SRC = "/images/no_photo.png";
+    public static final String AMOUNT_MUST_BE_POSITIVE = "Неверно указана сумма";
+    public static final String THANKS_FOR_DONATE = "Спасибо за поддержку компании";
 }

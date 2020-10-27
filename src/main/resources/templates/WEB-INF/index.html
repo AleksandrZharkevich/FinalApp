@@ -125,16 +125,6 @@
                 <div class="col-md-6 text-center text-md-right">
                     <div class="custom-pagination ml-auto">
                         <div class="d-inline-block">
-                            <!--                            <a th:each="pageNumber: ${pageNumbers}" th:href="@{/(page=${pageNumber})}"-->
-                            <!--                               th:text="${pageNumber}"-->
-                            <!--                               th:class="${pageNumber==companyPage.number + 1} ? active"></a>-->
-                            <!--                            <a class="ajaxCompanyLink" th:each="pageNumber: ${pageNumbers}" th:text="${pageNumber}"-->
-                            <!--                               th:data-page="${pageNumber}"-->
-                            <!--                               th:href="@{/(page=${pageNumber})}"-->
-                            <!--                               th:class="${pageNumber==companyPage.number + 1} ? active">-->
-                            <!--                                &lt;!&ndash;                               th:onclick="'loadCompanies(\'' + ${pageNumber} + '\');'"></a>&ndash;&gt;-->
-                            <!--                            </a>-->
-
                             <span th:each="pageNumber: ${pageNumbers}"
                                   th:text="${pageNumber}"
                                   th:data-page="${pageNumber}"
@@ -142,7 +132,6 @@
                                   th:class="ajaxLink"
                                   th:classappend="${pageNumber==companyPage.number + 1} ? currentLink">
                             </span>
-
                         </div>
                     </div>
                 </div>

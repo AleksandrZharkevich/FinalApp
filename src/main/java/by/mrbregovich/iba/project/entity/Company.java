@@ -42,6 +42,9 @@ public class Company {
     @Column(name = "image_url", nullable = false)
     private String imgUrl;
 
+    @Column(name = "donate", nullable = false)
+    private Integer donate;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
