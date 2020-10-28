@@ -1,8 +1,7 @@
 package by.mrbregovich.iba.project.rest;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
-import by.mrbregovich.iba.project.dto.CompanyRestResponseDto;
-import by.mrbregovich.iba.project.dto.DonateDto;
+import by.mrbregovich.iba.project.dto.CompanyResponseDto;
 import by.mrbregovich.iba.project.dto.ResponseMessage;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
@@ -25,18 +24,18 @@ public class CompanyRestController {
     }
 
     @GetMapping("/api/{page}")
-    public List<CompanyRestResponseDto> getSinglePage(@PathVariable("page") int page) {
+    public List<CompanyResponseDto> getSinglePage(@PathVariable("page") int page) {
 
         int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
 
         List<Company> companies = companyService.findActiveCompaniesByPageNumber(page, pageSize);
 
-        List<CompanyRestResponseDto> list;
+        List<CompanyResponseDto> list;
 
         if (companies == null || companies.isEmpty()) {
             list = Collections.emptyList();
         } else {
-            list = companies.stream().map(CompanyRestResponseDto::of).collect(Collectors.toList());
+            list = companies.stream().map(CompanyResponseDto::of).collect(Collectors.toList());
         }
         return list;
     }

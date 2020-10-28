@@ -2,6 +2,7 @@ package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
+import by.mrbregovich.iba.project.dto.CompanyResponseDto;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.entity.RequestStatus;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,12 +58,12 @@ public class CompanyController {
 
     @GetMapping("/addCompany")
     public String addCompany(Model model) {
-        model.addAttribute("companyForm", new CompanyDto());
+        model.addAttribute("companyDto", new CompanyDto());
         return "companyForm";
     }
 
     @PostMapping("/addCompany")
-    public ModelAndView processCompany(@Valid @ModelAttribute("companyForm") CompanyDto form, Errors errors,
+    public ModelAndView processCompany(@Valid @ModelAttribute("companyDto") CompanyDto form, Errors errors,
                                        @AuthenticationPrincipal User user) {
         ModelAndView modelAndView = new ModelAndView();
         if (errors.hasErrors()) {
@@ -99,5 +99,22 @@ public class CompanyController {
 //            modelAndView.addObject("errorMsg", e.getMessage());
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/companies/{id}/edit")
+    public String editCompanyForm(Model model, @PathVariable("id") Long id) {
+        try {
+            Company company = companyService.findCompanyById(id);
+            model.addAttribute("companyDto", CompanyResponseDto.of(company));
+            return "editCompany";
+        } catch (CompanyNotFoundException e) {
+
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/companies/{id}/edit")
+    public String processEditCompanyForm(){
+        return "redirect:/companies/{id}";
     }
 }

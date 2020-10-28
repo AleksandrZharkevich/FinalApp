@@ -70,7 +70,11 @@ public class CompanyServiceImpl implements CompanyService {
         Company newCompany = Mapper.map(form, Company.class);
         newCompany.setCompanyStatus(CompanyStatus.ACTIVE);
         newCompany.setOwner(companyOwner);
-        newCompany.setImgUrl(AppConstants.NO_IMG_SRC);
+        if (form.getImgUrl() == null || form.getImgUrl().trim().isEmpty()) {
+            newCompany.setImgUrl(AppConstants.NO_IMG_SRC);
+        } else {
+            newCompany.setImgUrl(form.getImgUrl());
+        }
         newCompany.setCreatedAt(LocalDate.now());
         newCompany.setEndDate(LocalDate.now().plusDays(form.getDuration()));
         newCompany.setDonate(0);

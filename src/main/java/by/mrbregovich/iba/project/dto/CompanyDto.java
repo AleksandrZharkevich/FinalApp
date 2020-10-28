@@ -21,4 +21,6 @@ public class CompanyDto {
 
     @Min(value = 1, message = AppConstants.VALIDATION_DURATION)
     private int duration;
+
+    private String imgUrl;
 }

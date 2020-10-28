@@ -33,3 +33,8 @@
 .link {
     cursor: pointer;
 }
+
+.companyImg{
+    width: 300px;
+    height: auto;
+}

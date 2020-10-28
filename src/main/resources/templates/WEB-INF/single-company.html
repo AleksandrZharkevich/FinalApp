@@ -64,7 +64,7 @@
                 <div class="col-lg-8 mb-4 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div class="border p-2 d-inline-block mr-3 rounded">
-                            <img th:src="@{${company.imgUrl}}" alt="Image">
+                            <img class="companyImg" th:src="@{${company.imgUrl}}" alt="Image">
                         </div>
                         <div>
                             <h2 th:text="${company.name}">Product Designer</h2>
@@ -115,7 +115,8 @@
 
                     <div class="row mb-5 justify-content-end">
                         <div sec:authorize="isAuthenticated()" class="col-4">
-                            <a href="#" class="btn btn-block btn-light btn-md">Изменить</a>
+                            <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}"
+                               class="btn btn-block btn-light btn-md">Изменить</a>
                         </div>
                         <div class="col-4">
                             <a href="#" th:href="@{'/request/' + ${company.id}}"
@@ -126,16 +127,12 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="bg-light p-3 border rounded mb-4">
-                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
+                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Компания</h3>
                         <ul class="list-unstyled pl-3 mb-0">
-                            <li class="mb-2"><strong class="text-black">Published on:</strong> April 14, 2019</li>
-                            <li class="mb-2"><strong class="text-black">Vacancy:</strong> 20</li>
+                            <li class="mb-2"><strong class="text-black">Начало:</strong> April 14, 2019</li>
+                            <li class="mb-2"><strong class="text-black">Инициатор:</strong> 20</li>
                             <li class="mb-2"><strong class="text-black">Employment Status:</strong> Full-time</li>
-                            <li class="mb-2"><strong class="text-black">Experience:</strong> 2 to 3 year(s)</li>
-                            <li class="mb-2"><strong class="text-black">Job Location:</strong> New ork City</li>
-                            <li class="mb-2"><strong class="text-black">Salary:</strong> $60k - $100k</li>
-                            <li class="mb-2"><strong class="text-black">Gender:</strong> Any</li>
-                            <li class="mb-2"><strong class="text-black">Application Deadline:</strong> April 28, 2019
+                            <li class="mb-2"><strong class="text-black">Окончание:</strong> April 28, 2019
                             </li>
                         </ul>
                     </div>
