@@ -20,4 +20,6 @@ public interface CompanyService {
     Company findCompanyById(Long id) throws CompanyNotFoundException;
 
     Company addDonate(Long id, Integer amount) throws CompanyNotFoundException;
+
+    String addParticipant(Long companyId, User user) throws CompanyNotFoundException;
 }

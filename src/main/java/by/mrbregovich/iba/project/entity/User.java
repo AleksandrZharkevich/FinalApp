@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -59,9 +60,15 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", targetEntity = Company.class)
     private List<Company> companies;
 
+    @JsonBackReference
+
+    @ManyToMany(mappedBy = "participants", targetEntity = Company.class)
+    private List<Company> joinedCompanies;
+
     public User() {
         this.roles = new ArrayList<>();
         this.requests = new ArrayList<>();
+        this.joinedCompanies = new ArrayList<>();
     }
 
     public User(String login, String password, String email) {

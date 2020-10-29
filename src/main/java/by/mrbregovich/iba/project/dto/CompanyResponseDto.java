@@ -14,6 +14,8 @@ public class CompanyResponseDto {
 
     private String name;
 
+    private String description;
+
     private String imgUrl;
 
     private String ownerLogin;
@@ -26,6 +28,7 @@ public class CompanyResponseDto {
         CompanyResponseDto companyResponseDto = new CompanyResponseDto();
         companyResponseDto.setId(company.getId());
         companyResponseDto.setName(company.getName());
+        companyResponseDto.setDescription(company.getDescription());
         companyResponseDto.setImgUrl(company.getImgUrl());
         companyResponseDto.setOwnerLogin(company.getOwner().getLogin());
         companyResponseDto.setOwnerId(company.getOwner().getId());

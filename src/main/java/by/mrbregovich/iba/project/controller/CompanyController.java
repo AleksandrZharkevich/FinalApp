@@ -105,16 +105,17 @@ public class CompanyController {
     public String editCompanyForm(Model model, @PathVariable("id") Long id) {
         try {
             Company company = companyService.findCompanyById(id);
-            model.addAttribute("companyDto", CompanyResponseDto.of(company));
+            model.addAttribute("companyDto", CompanyDto.of(company));
             return "editCompany";
         } catch (CompanyNotFoundException e) {
-
+            return "redirect:/";
         }
-        return "redirect:/";
     }
 
     @PostMapping("/companies/{id}/edit")
-    public String processEditCompanyForm(){
-        return "redirect:/companies/{id}";
+    public String processEditCompanyForm(@Valid @ModelAttribute("companyDto") CompanyDto form, Errors errors,
+                                         @PathVariable("id") Long companyId, @AuthenticationPrincipal User user) {
+
+        return "redirect:/companies/" + companyId;
     }
 }

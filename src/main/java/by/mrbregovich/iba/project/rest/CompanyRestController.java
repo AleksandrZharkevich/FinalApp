@@ -4,8 +4,11 @@ import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyResponseDto;
 import by.mrbregovich.iba.project.dto.ResponseMessage;
 import by.mrbregovich.iba.project.entity.Company;
+import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
+import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
+import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +20,12 @@ import java.util.stream.Collectors;
 public class CompanyRestController {
 
     private CompanyService companyService;
+    private UserService userService;
 
     @Autowired
-    public CompanyRestController(CompanyService companyService) {
+    public CompanyRestController(CompanyService companyService, UserService userService) {
         this.companyService = companyService;
+        this.userService = userService;
     }
 
     @GetMapping("/api/{page}")
@@ -40,7 +45,7 @@ public class CompanyRestController {
         return list;
     }
 
-    @GetMapping("/donate/{companyId}/{amount}")
+    @GetMapping("/api/donate/{companyId}/{amount}")
     public ResponseMessage donate(@PathVariable("companyId") Long companyId, @PathVariable("amount") Integer amount) {
         if (amount <= 0) {
             return new ResponseMessage(AppConstants.AMOUNT_MUST_BE_POSITIVE);
@@ -51,5 +56,18 @@ public class CompanyRestController {
             return new ResponseMessage(AppConstants.COMPANY_ID_NOT_FOUND_MSG);
         }
         return new ResponseMessage(AppConstants.THANKS_FOR_DONATE);
+    }
+
+    @GetMapping("/api/join/{companyId}/{userId}")
+    public ResponseMessage join(@PathVariable("companyId") Long companyId, @PathVariable("userId") Long userId) {
+        try {
+            User user = userService.findById(userId);
+            String msg = companyService.addParticipant(companyId, user);
+            return new ResponseMessage(msg);
+        } catch (UserNotFoundException e) {
+            return new ResponseMessage(AppConstants.FAIL_JOIN_COMPANY_MSG_SHOULD_LOG_IN);
+        } catch (CompanyNotFoundException e) {
+            return new ResponseMessage(e.getMessage());
+        }
     }
 }

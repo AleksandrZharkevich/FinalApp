@@ -19,14 +19,6 @@
 </head>
 <body id="top">
 
-<div id="overlayer"></div>
-<div class="loader">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
-
 <div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
@@ -49,10 +41,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold" th:text="${companyDto.name}">Новая Компания</h1>
+                    <h1 class="text-white font-weight-bold">Редактировать компанию</h1>
                     <div class="custom-breadcrumbs">
                         <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Редактировать компанию</strong></span>
+                        <span class="text-white"><strong>Изменить</strong></span>
                     </div>
                 </div>
             </div>
@@ -63,12 +55,27 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 mb-5">
-                    <h2 class="mb-4">Редактировать компанию</h2>
+                    <!--                    <h2 class="mb-4">Зарегистрировать Вашу Инициативу</h2>-->
                     <div class="validationError" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                     <form id="formId" method="post" th:action="@{'/companies/' + ${companyDto.id} + '/edit'}"
-                          th:object="${companyDto}"
-                          class="p-4 border rounded">
+                          th:object="${companyDto}" class="p-4 border rounded">
 
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="imgSelector">Изображение</label><br>
+                                <img id="imgCompany" th:src="${companyDto.imgUrl}" class="companyImg"
+                                     align="center"/><br>
+                                <label class="btn btn-primary btn-md btn-file"
+                                       onclick="document.querySelector('#imgSelector').click()">
+                                    Выберите файл
+                                </label>
+                                <input id="imgSelector" style="visibility: collapse; width: 0px;" type="file"
+                                       onchange="upload(this.files[0])">
+                                <input type="text" id="imgUrl" th:field="*{imgUrl}" name="imgUrl"
+                                       style="visibility: collapse; width: 0px;">
+                                <a id="link">Ваша ссылка</a>
+                            </div>
+                        </div>
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
                                 <label class="text-black" for="name">Название компании</label>
@@ -86,8 +93,6 @@
                                    th:errors="*{description}">Description error</p>
                                 <textarea id="description" name="description" form="formId" th:field="*{description}"
                                           class="form-control editor"></textarea>
-                                <!--                                <div id="description" name="description" form="formId" th:field="*{description}"-->
-                                <!--                                          class="form-control editor"></div>-->
                             </div>
                         </div>
                         <div class="row form-group">
@@ -102,7 +107,8 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <input type="submit" value="Начать компанию" class="btn px-4 btn-primary text-white">
+                                <input type="submit" value="Сохранить изменения"
+                                       class="btn px-4 btn-primary text-white">
                             </div>
                         </div>
 
@@ -119,6 +125,33 @@
 
 <!-- SCRIPTS -->
 <div th:replace="baseFragment::scripts"></div>
+
+<script>
+    window.ondragover = function (e) {
+        e.preventDefault()
+    }
+    window.ondrop = function (e) {
+        e.preventDefault();
+        upload(e.dataTransfer.files[0]);
+    }
+
+    function upload(file) {
+        if (!file || !file.type.match(/image.*/)) return;
+        document.body.className = "uploading";
+        var fd = new FormData();
+        fd.append("image", file);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://api.imageban.ru/v1");
+        xhr.onload = function () {
+            document.querySelector("#link").href = JSON.parse(xhr.responseText).data.link;
+            document.querySelector("#imgCompany").src = JSON.parse(xhr.responseText).data.link;
+            $("#imgUrl").val(JSON.parse(xhr.responseText).data.link);
+            // document.body.className = "uploaded";
+        }
+        xhr.setRequestHeader('Authorization', 'TOKEN O0qeUu6VdGF3q4hDltsI');
+        xhr.send(fd);
+    }
+</script>
 
 </body>
 </html>

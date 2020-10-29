@@ -93,4 +93,19 @@ public class CompanyServiceImpl implements CompanyService {
         company.setDonate(company.getDonate() + amount);
         return companyRepository.save(company);
     }
+
+    @Override
+    public String addParticipant(Long companyId, User user) throws CompanyNotFoundException {
+        Company company = companyRepository.findById(companyId).orElseThrow(() ->
+                new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
+        String resultMsg;
+        if (company.getParticipants().contains(user)) {
+            resultMsg = AppConstants.PARTICIPANT_ALREADY_JOINED;
+        } else {
+            company.getParticipants().add(user);
+            companyRepository.save(company);
+            resultMsg = AppConstants.OK_JOIN_COMPANY_MSG;
+        }
+        return resultMsg;
+    }
 }

@@ -12,7 +12,7 @@ public interface UserService {
 
     User findByLogin(String login) throws UserNotFoundException;
 
-    User findById(Long id);
+    User findById(Long id) throws UserNotFoundException;
 
     List<User> findAll();
 

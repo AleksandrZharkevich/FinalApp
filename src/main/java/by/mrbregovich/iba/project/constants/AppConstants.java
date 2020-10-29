@@ -32,4 +32,7 @@ public final class AppConstants {
     public static final String NO_IMG_SRC = "/images/no_photo.png";
     public static final String AMOUNT_MUST_BE_POSITIVE = "Неверно указана сумма";
     public static final String THANKS_FOR_DONATE = "Спасибо за поддержку компании";
+    public static final String FAIL_JOIN_COMPANY_MSG_SHOULD_LOG_IN = "Ввойдите или зарегистрируйтесь";
+    public static final String OK_JOIN_COMPANY_MSG = "Спасибо, что присоединились к компании";
+    public static final String PARTICIPANT_ALREADY_JOINED = "Вы уже зарегистрированы в компании";
 }

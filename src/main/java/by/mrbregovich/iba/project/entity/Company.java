@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -53,6 +54,13 @@ public class Company {
     @JsonManagedReference
     @OneToMany(mappedBy = "company", targetEntity = Request.class)
     private List<Request> requests;
+
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "company_participants",
+            joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private List<User> participants = new ArrayList<>();
 
     @Override
     public String toString() {

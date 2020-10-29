@@ -67,7 +67,7 @@
                             <img class="companyImg" th:src="@{${company.imgUrl}}" alt="Image">
                         </div>
                         <div>
-                            <h2 th:text="${company.name}">Product Designer</h2>
+                            <h2 th:text="${company.name}">Company name</h2>
                         </div>
                     </div>
                 </div>
@@ -78,14 +78,43 @@
                                     class="icon-credit-card mr-2 text-danger"></span>Помочь</a>
                         </div>
                         <div class="col-6">
-                            <a href="#" class="btn btn-block btn-primary btn-md">Присоединиться</a>
+                            <a id="joinBtn" class="btn btn-block btn-primary btn-md">Присоединиться</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <div id="joinPanel" class="row justify-content-end">
+                <div sec:authorize="!isAuthenticated()" class="col-lg-8 justify-content-end">
+                    <h3 class="h5 d-flex align-items-center mb-4 text-primary">Войдите или зарегистрируйтесь</h3>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="col-lg-8 justify-content-end">
+                    <div class="row justify-content-end">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button id="joinRequestBtn" class="btn btn-block btn-light btn-md"
+                                    th:onclick="'sendJoinRequest(\'' + ${company.id} + '\', \'' + ${#authentication.principal.id} + '\')'">
+                                <span class="icon-dollar icon mr-2"></span>Присоединиться
+                            </button>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button id="quitRequestBtn" class="btn btn-block btn-light btn-md"
+                                    th:onclick="'sendQuitRequest(\'' + ${company.id} + '\', \'' + ${#authentication.principal.id} + '\')'">
+                                <span class="icon-dollar icon mr-2"></span>Выйти из компании
+                            </button>
+                        </div>
+                    </div>
+                    <div id="joinMsg" class="justify-content-end">
+                        <h3 class="h5 d-flex align-items-center mb-4 text-primary">Ответ</h3>
+                    </div>
+                </div>
+            </div>
+
+
             <div id="donatePanel" class="row justify-content-end">
                 <div class="col-lg-8 justify-content-end">
-                    <div id="donate" class="row justify-content-end">
+                    <!--                    <div id="donate" class="row justify-content-end">-->
+                    <div class="row justify-content-end">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <input id="donateAmount" type="number" min="1" class="form-control form-control-lg"
                                    placeholder="1">
