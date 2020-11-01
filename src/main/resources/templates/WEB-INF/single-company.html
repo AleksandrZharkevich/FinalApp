@@ -78,7 +78,8 @@
                                     class="icon-credit-card mr-2 text-danger"></span>Помочь</a>
                         </div>
                         <div class="col-6">
-                            <a id="joinBtn" class="btn btn-block btn-primary btn-md">Присоединиться</a>
+                            <a id="joinBtn" class="btn btn-block btn-primary btn-md"
+                               style="color: white">Присоединиться</a>
                         </div>
                     </div>
                 </div>
@@ -87,20 +88,22 @@
 
             <div id="joinPanel" class="row justify-content-end">
                 <div sec:authorize="!isAuthenticated()" class="col-lg-8 justify-content-end">
-                    <h3 class="h5 d-flex align-items-center mb-4 text-primary">Войдите или зарегистрируйтесь</h3>
+                    <h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">Войдите
+                        или
+                        зарегистрируйтесь</h3>
                 </div>
                 <div sec:authorize="isAuthenticated()" class="col-lg-8 justify-content-end">
                     <div class="row justify-content-end">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <button id="joinRequestBtn" class="btn btn-block btn-light btn-md"
                                     th:onclick="'sendJoinRequest(\'' + ${company.id} + '\', \'' + ${#authentication.principal.id} + '\')'">
-                                <span class="icon-dollar icon mr-2"></span>Присоединиться
+                                Присоединиться
                             </button>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <button id="quitRequestBtn" class="btn btn-block btn-light btn-md"
                                     th:onclick="'sendQuitRequest(\'' + ${company.id} + '\', \'' + ${#authentication.principal.id} + '\')'">
-                                <span class="icon-dollar icon mr-2"></span>Выйти из компании
+                                Выйти
                             </button>
                         </div>
                     </div>
@@ -136,17 +139,14 @@
                     <div class="mb-5">
                         <h3 class="h5 d-flex align-items-center mb-4 text-primary"><span
                                 class="icon-align-left mr-3"></span>Описание проекта</h3>
-                        <p th:text="${company.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Debitis illum fuga eveniet.
-                            Deleniti asperiores, commodi quae ipsum quas est itaque, ipsa, dolore beatae voluptates nemo
-                            blanditiis iste eius officia minus.</p>
+                        <p th:text="${company.description}">Lorem ipsum dolor sit amet</p>
                     </div>
 
                     <div class="row mb-5 justify-content-end">
-                        <div sec:authorize="isAuthenticated()" class="col-4">
-                            <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}"
-                               class="btn btn-block btn-light btn-md">Изменить</a>
-                        </div>
+                        <!--                        <div sec:authorize="isAuthenticated()" class="col-4">-->
+                        <!--                            <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}"-->
+                        <!--                               class="btn btn-block btn-light btn-md">Изменить</a>-->
+                        <!--                        </div>-->
                         <div class="col-4">
                             <a href="#" th:href="@{'/request/' + ${company.id}}"
                                class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
@@ -158,10 +158,14 @@
                     <div class="bg-light p-3 border rounded mb-4">
                         <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Компания</h3>
                         <ul class="list-unstyled pl-3 mb-0">
-                            <li class="mb-2"><strong class="text-black">Начало:</strong> April 14, 2019</li>
-                            <li class="mb-2"><strong class="text-black">Инициатор:</strong> 20</li>
-                            <li class="mb-2"><strong class="text-black">Employment Status:</strong> Full-time</li>
-                            <li class="mb-2"><strong class="text-black">Окончание:</strong> April 28, 2019
+                            <li class="mb-2"><strong class="text-black">Инициатор:</strong> [[${company.owner.login}]]
+                            </li>
+                            <li class="mb-2"><strong class="text-black">Начало:</strong> [[${company.createdAt}]]</li>
+                            <li class="mb-2"><strong class="text-black">Окончание:</strong> [[${company.endDate}]]</li>
+                            <li sec:authorize="isAuthenticated()"
+                                th:if="${#authentication.principal.id} == ${company.owner.id}"
+                                class="mb-2">
+                                <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}" style="color: red">Изменить</a>
                             </li>
                         </ul>
                     </div>

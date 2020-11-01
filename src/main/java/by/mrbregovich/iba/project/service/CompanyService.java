@@ -17,6 +17,8 @@ public interface CompanyService {
 
     Company register(CompanyDto form, User companyOwner);
 
+    Company update(Company company, CompanyDto updatedForm);
+
     Company findCompanyById(Long id) throws CompanyNotFoundException;
 
     Company addDonate(Long id, Integer amount) throws CompanyNotFoundException;

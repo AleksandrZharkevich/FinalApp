@@ -12,7 +12,7 @@ function sendJoinRequest(companyId, userId) {
         type: "GET",
         url: "/api/join/" + companyId + "/" + userId,
         success: function (data) {
-            $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary">' + data.message + '</h3>');
+            $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
             $("#joinMsg").slideDown();
         }
     });
@@ -23,7 +23,7 @@ function sendQuitRequest(companyId, userId) {
         type: "GET",
         url: "/api/quit/" + companyId + "/" + userId,
         success: function (data) {
-            $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary">' + data.message + '</h3>');
+            $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
             $("#joinMsg").slideDown();
         }
     });
@@ -34,7 +34,7 @@ function sendDonate(companyId) {
         type: "GET",
         url: "/api/donate/" + companyId + "/" + $('#donateAmount').val(),
         success: function (data) {
-            $("#donateMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary">' + data.message + '</h3>');
+            $("#donateMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
             $("#donateMsg").slideDown();
         }
     });

@@ -82,6 +82,17 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public Company update(Company company, CompanyDto updatedForm) {
+        company.setImgUrl(updatedForm.getImgUrl());
+        company.setName(updatedForm.getName());
+        company.setDescription(updatedForm.getDescription());
+        if (company.daysLeft() != updatedForm.getDuration()) {
+            company.setEndDate(company.getEndDate().plusDays(updatedForm.getDuration()));
+        }
+        return companyRepository.save(company);
+    }
+
+    @Override
     public Company findCompanyById(Long id) throws CompanyNotFoundException {
         return companyRepository.findById(id).orElseThrow(() -> new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
     }

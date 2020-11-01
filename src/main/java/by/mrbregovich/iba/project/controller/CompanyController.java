@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -116,6 +117,12 @@ public class CompanyController {
     public String processEditCompanyForm(@Valid @ModelAttribute("companyDto") CompanyDto form, Errors errors,
                                          @PathVariable("id") Long companyId, @AuthenticationPrincipal User user) {
 
-        return "redirect:/companies/" + companyId;
+        try {
+            Company company = companyService.findCompanyById(companyId);
+            companyService.update(company, form);
+            return "redirect:/companies/" + companyId;
+        } catch (CompanyNotFoundException e) {
+            return "redirect:/";
+        }
     }
 }
