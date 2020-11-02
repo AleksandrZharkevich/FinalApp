@@ -4,6 +4,7 @@ import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.CompanyStatus;
+import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +53,12 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
         return new PageImpl<Company>(list, PageRequest.of(currentPage, pageSize), companies.size());
+    }
+
+    @Override
+    public List<Company> findActiveCompanies() {
+        List<Company> companies = companyRepository.findAllByCompanyStatus(CompanyStatus.ACTIVE);
+        return Objects.requireNonNullElse(companies, Collections.emptyList());
     }
 
     @Override
@@ -118,5 +126,39 @@ public class CompanyServiceImpl implements CompanyService {
             resultMsg = AppConstants.OK_JOIN_COMPANY_MSG;
         }
         return resultMsg;
+    }
+
+    @Override
+    public String deleteParticipant(Long companyId, User user) throws CompanyNotFoundException {
+        Company company = companyRepository.findById(companyId).orElseThrow(() ->
+                new CompanyNotFoundException(AppConstants.COMPANY_ID_NOT_FOUND_MSG));
+        String resultMsg;
+        if (!company.getParticipants().contains(user)) {
+            resultMsg = AppConstants.PARTICIPANT_IS_NOT_JOINED;
+        } else {
+            company.getParticipants().remove(user);
+            user.getRequests().forEach(request -> {
+                if (request.getCompany().getId() == companyId) {
+                    request.setRequestStatus(RequestStatus.REGISTERED);
+
+                    //возможно надо сохранить через риквест репозитори
+
+                }
+            });
+            companyRepository.save(company);
+            resultMsg = AppConstants.OK_QUIT_COMPANY_MSG;
+        }
+        return resultMsg;
+    }
+
+    @Override
+    public void checkExpiration() {
+        List<Company> companies = companyRepository.findAll();
+        companies.forEach(company -> {
+            if (company.daysLeft() < 1) {
+                company.closeCompany();
+                companyRepository.save(company);
+            }
+        });
     }
 }

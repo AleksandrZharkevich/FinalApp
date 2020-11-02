@@ -13,6 +13,8 @@ public interface CompanyService {
 
     Page<Company> findActiveCompaniesByPage(Pageable pageable);
 
+    List<Company> findActiveCompanies();
+
     List<Company> findActiveCompaniesByPageNumber(int pageNumber, int pageSize);
 
     Company register(CompanyDto form, User companyOwner);
@@ -24,4 +26,8 @@ public interface CompanyService {
     Company addDonate(Long id, Integer amount) throws CompanyNotFoundException;
 
     String addParticipant(Long companyId, User user) throws CompanyNotFoundException;
+
+    String deleteParticipant(Long companyId, User user) throws CompanyNotFoundException;
+
+    void checkExpiration();
 }

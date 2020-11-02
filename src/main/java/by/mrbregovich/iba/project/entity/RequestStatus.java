@@ -6,5 +6,5 @@ package by.mrbregovich.iba.project.entity;
  * DONE - manager processed this request
  */
 public enum RequestStatus {
-    REGISTERED, IN_PROCESS, DONE
+    REGISTERED, IN_PROCESS, DONE, COMPANY_EXPIRED
 }

@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     List<Company> findAllByCompanyStatusOrderByCreatedAtDesc(CompanyStatus companyStatus);
+
+    List<Company> findAllByCompanyStatus(CompanyStatus companyStatus);
 }

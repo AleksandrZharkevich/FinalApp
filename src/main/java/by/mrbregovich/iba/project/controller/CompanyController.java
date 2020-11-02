@@ -2,11 +2,7 @@ package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
-import by.mrbregovich.iba.project.dto.CompanyResponseDto;
-import by.mrbregovich.iba.project.entity.Company;
-import by.mrbregovich.iba.project.entity.Request;
-import by.mrbregovich.iba.project.entity.RequestStatus;
-import by.mrbregovich.iba.project.entity.User;
+import by.mrbregovich.iba.project.entity.*;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,22 +32,45 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
+//    @GetMapping(value = {"/", "/index"})
+//    public String listCompanies(Model model,
+//                                @RequestParam("page") Optional<Integer> page) {
+//        int currentPage = page.orElse(1);
+//        int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
+//
+//        Page<Company> companyPage = companyService.findActiveCompaniesByPage(PageRequest.of(currentPage - 1, pageSize));
+//
+//        model.addAttribute("companyPage", companyPage);
+//
+//        int totalPages = companyPage.getTotalPages();
+//        if (totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+//
+//            model.addAttribute("pageNumbers", pageNumbers);
+//        }
+//
+//        return "index";
+//    }
+
     @GetMapping(value = {"/", "/index"})
-    public String listCompanies(Model model,
-                                @RequestParam("page") Optional<Integer> page) {
-        int currentPage = page.orElse(1);
+    public String listCompanies(Model model) {
+        int startPage = 1;
         int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
 
-        Page<Company> companyPage = companyService.findActiveCompaniesByPage(PageRequest.of(currentPage - 1, pageSize));
+        List<Company> activeCompanies = companyService.findActiveCompaniesByPageNumber(startPage, pageSize)
+                .stream()
+                .limit(AppConstants.COMPANIES_PAGE_SIZE)
+                .collect(Collectors.toList());
 
-        model.addAttribute("companyPage", companyPage);
+        model.addAttribute("activeCompanies", activeCompanies);
 
-        int totalPages = companyPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-
-            model.addAttribute("pageNumbers", pageNumbers);
+        int totalActiveCompaniesCount = companyService.findActiveCompanies().size();
+        List<Integer> pageNumbers = new ArrayList<>();
+        if (totalActiveCompaniesCount > AppConstants.COMPANIES_PAGE_SIZE) {
+            int totalPages = (int) Math.ceil(totalActiveCompaniesCount / (AppConstants.COMPANIES_PAGE_SIZE * 1.0));
+            pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
         }
+        model.addAttribute("pageNumbers", pageNumbers);
 
         return "index";
     }

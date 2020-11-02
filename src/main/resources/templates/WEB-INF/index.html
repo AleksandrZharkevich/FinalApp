@@ -69,7 +69,7 @@
                     <div class="d-flex align-items-center justify-content-center mb-2">
 
                         <!--доработать-->
-                        <strong class="number" data-number="10240">0</strong>
+                        <strong class="number" th:attr="data-number='10240'">0</strong>
                     </div>
                     <span class="caption">Активных компаний</span>
                 </div>
@@ -101,15 +101,34 @@
                     <h2 class="section-title mb-2">Активные компании</h2>
                 </div>
             </div>
+<!--            <div id="container" class="mb-5">-->
+<!--                <div th:each="company:${companyPage.content}"-->
+<!--                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">-->
+<!--                    <div class="col-md-2">-->
+<!--                        <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"-->
+<!--                             class="img-fluid">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"-->
+<!--                               th:text="${company.name}"></a></h4>-->
+<!--                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3 text-md-right">-->
+<!--                        <span class="meta">Окончание</span>-->
+<!--                        <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
             <div id="container" class="mb-5">
-                <div th:each="company:${companyPage.content}"
+                <div th:each="company:${activeCompanies}"
                      class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
                     <div class="col-md-2">
                         <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"
                              class="img-fluid">
                     </div>
                     <div class="col-md-7">
-                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="job-single.html"
+                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"
                                th:text="${company.name}"></a></h4>
                         <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>
                     </div>
@@ -120,16 +139,16 @@
                 </div>
             </div>
 
-            <div th:if="${companyPage.totalPages > 0}" class="row pagination-wrap">
+            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">
                 <div class="col-md-6 text-center text-md-right">
                     <div class="custom-pagination ml-auto">
-                        <div class="d-inline-block">
+                        <div id="pages" class="d-inline-block">
                             <span th:each="pageNumber: ${pageNumbers}"
                                   th:text="${pageNumber}"
                                   th:data-page="${pageNumber}"
-                                  th:onclick="'loadCompanies(\'' + ${pageNumber} + '\');' "
+                                  th:onclick="'loadCompanies(\'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "
                                   th:class="ajaxLink"
-                                  th:classappend="${pageNumber==companyPage.number + 1} ? currentLink">
+                                  th:classappend="${pageNumber== 1} ? currentLink">
                             </span>
                         </div>
                     </div>

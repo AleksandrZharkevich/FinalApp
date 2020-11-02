@@ -70,4 +70,17 @@ public class CompanyRestController {
             return new ResponseMessage(e.getMessage());
         }
     }
+
+    @GetMapping("/api/quit/{companyId}/{userId}")
+    public ResponseMessage quit(@PathVariable("companyId") Long companyId, @PathVariable("userId") Long userId) {
+        try {
+            User user = userService.findById(userId);
+            String msg = companyService.deleteParticipant(companyId, user);
+            return new ResponseMessage(msg);
+        } catch (UserNotFoundException e) {
+            return new ResponseMessage(AppConstants.FAIL_QUIT_COMPANY_MSG_SHOULD_LOG_IN);
+        } catch (CompanyNotFoundException e) {
+            return new ResponseMessage(e.getMessage());
+        }
+    }
 }
