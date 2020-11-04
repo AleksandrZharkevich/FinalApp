@@ -1,7 +1,9 @@
 package by.mrbregovich.iba.project.rest;
 
 import by.mrbregovich.iba.project.dto.RequestRestResponseDto;
+import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.service.RequestService;
+import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +15,12 @@ import java.util.List;
 public class RequestRestController {
 
     private RequestService requestService;
+    private UserService userService;
 
     @Autowired
-    public RequestRestController(RequestService requestService) {
+    public RequestRestController(RequestService requestService, UserService userService) {
         this.requestService = requestService;
+        this.userService = userService;
     }
 
     @GetMapping("/api/{companyId}/{pageNumber}")
@@ -24,4 +28,14 @@ public class RequestRestController {
                                                                 @PathVariable("pageNumber") Integer pageNumber) {
         return requestService.findRegisteredRequestsByCompanyIdAndPageNumber(companyId, pageNumber);
     }
+
+//    @GetMapping("/api/process/{requestId}/{userId}")
+//    public List<RequestRestResponseDto> processRequest(@PathVariable("requestId") Long requestId,
+//                                                       @PathVariable("userId") Long userId) {
+//        try {
+//            userService.processRequest(requestId, userId);
+//        } catch (UserNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

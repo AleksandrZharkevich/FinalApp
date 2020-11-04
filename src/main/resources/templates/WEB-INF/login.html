@@ -17,13 +17,6 @@
 </head>
 <body id="top">
 
-<div id="overlayer"></div>
-<div class="loader">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
 <div class="site-wrap">
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -58,8 +51,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-md-2">
-                    <h2 class="mb-4">Log In To The CHOICE</h2>
-                    <div class="validationError" th:if="${error}">Проверьте логин и пароль</div>
+                    <h2 class="mb-4">Войти</h2>
+                    <div class="validationError" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                     <form method="post" th:action="@{/login}" class="p-4 border rounded">
 
                         <div class="row form-group">

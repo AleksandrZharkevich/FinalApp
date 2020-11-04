@@ -7,6 +7,7 @@ import by.mrbregovich.iba.project.entity.Contact;
 import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.exception.RequestAlreadyRegistered;
+import by.mrbregovich.iba.project.exception.RequestNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
 import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.service.RequestService;
@@ -43,6 +44,13 @@ public class RequestServiceImpl implements RequestService {
         request.setRequestStatus(RequestStatus.REGISTERED);
         request.setCompany(companyRepository.findById(companyId).get());
         return requestRepository.save(request);
+    }
+
+    @Override
+    public Request findById(Long requestId) throws RequestNotFoundException {
+        return requestRepository.findById(requestId).orElseThrow(() -> {
+            return new RequestNotFoundException(AppConstants.REQUEST_ID_NOT_FOUND_MSG);
+        });
     }
 
     @Override
@@ -95,5 +103,10 @@ public class RequestServiceImpl implements RequestService {
                 .limit(pageSize)
                 .map(RequestRestResponseDto::of)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Request save(Request request) {
+        return requestRepository.save(request);
     }
 }

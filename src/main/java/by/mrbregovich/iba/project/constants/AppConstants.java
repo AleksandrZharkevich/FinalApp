@@ -9,6 +9,7 @@ public final class AppConstants {
     public static final String USER_ID_NOT_FOUND_MSG = "Пользователь с таким id не найден";
     public static final String COMPANY_ID_NOT_FOUND_MSG = "Компания с таким id не найдена";
     public static final String REQUEST_WITH_PHONE_ALREADY_REGISTERED = "Заявка с таким номером телефона уже зарегистрирована";
+    public static final String REQUEST_ID_NOT_FOUND_MSG = "Заявка с таким id не найдена";
 
     //ValidationMessages
     public static final String VALIDATION_LOGIN = "Введите логин";
@@ -38,4 +39,6 @@ public final class AppConstants {
     public static final String OK_QUIT_COMPANY_MSG = "Вы покинули компанию";
     public static final String PARTICIPANT_ALREADY_JOINED = "Вы уже зарегистрированы в компании";
     public static final String PARTICIPANT_IS_NOT_JOINED = "Вы не зарегистрированы в компании";
+    public static final String USER_IS_NOT_PARTICIPANT = "Присоединитесь к проекту, чтобы обрабатывать заявки";
+    public static final String CHECK_LOGIN_PASS_MSG = "Проверьте логин и пароль";
 }

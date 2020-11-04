@@ -173,26 +173,30 @@
             <div class="row mb-5 justify-content-center">
                 <div class="col-md-7 text-center">
                     <h2 class="section-title mb-2">Поданные заявки</h2>
+                    <div class="validationError" th:text="${errorMessage}"></div>
                 </div>
             </div>
 
-            <ul id="requests" class="job-listings mb-5">
-                <li th:each="request: ${activeRequests}"
-                    class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
-                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
-                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                            <h2>[[${request.contact.city}]], [[${request.contact.streetAddress}]]</h2>
-                        </div>
-                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-30">
-                            <span class="icon-room"></span>[[${request.contact.region}]] область,
-                            [[${request.contact.district}]] район
-                        </div>
-                        <div class="job-listing-meta">
-                            <span class="badge badge-success link">Обработать</span>
-                        </div>
+            <div id="requests" class="mb-5">
+                <div th:each="request: ${activeRequests}"
+                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
+                    <div class="col-md-2">
+                        <img align="center" width="50" height="50" th:src="@{/images/request.jpg}" alt="Image"
+                             class="img-fluid">
                     </div>
-                </li>
-            </ul>
+                    <div class="col-md-4">
+                        <h5>[[${request.contact.streetAddress}]]</h5>
+                        <p class="meta"><strong>[[${request.contact.city}]]</strong></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="meta"><span class="icon-room"></span>[[${request.contact.region}]] область,
+                            [[${request.contact.district}]] район</p>
+                    </div>
+                    <div class="col-md-2 text-md-right">
+                        <p><a href="#" th:href="@{'/request/take/' + ${request.id}}" class="meta">Обработать</a></p>
+                    </div>
+                </div>
+            </div>
 
             <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">
                 <div class="col-md-6 text-center text-md-right">

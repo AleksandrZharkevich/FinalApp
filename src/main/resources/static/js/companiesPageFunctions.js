@@ -22,14 +22,6 @@ function loadCompanies(pageNumber, totalPages) {
                     "</div>"
                 );
             }
-            // let linkArr = $("#container span.ajaxLink");
-            // for (let link of linkArr) {
-            //     if (link.prop("data-page") == pageNumber) {
-            //         link.addClass("currentLink");
-            //     } else {
-            //         link.removeClass("currentLink");
-            //     }
-            // }
             $("#pages").empty();
             for (let i = 1; i <= totalPages; i++) {
                 $("#pages").append(

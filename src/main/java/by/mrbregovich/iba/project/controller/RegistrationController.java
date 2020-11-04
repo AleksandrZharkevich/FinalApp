@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.controller;
 
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.repository.UserRepository;
@@ -43,12 +44,17 @@ public class RegistrationController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/";
     }
 
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("errorMessage", AppConstants.CHECK_LOGIN_PASS_MSG);
+        return "login";
+    }
 
     @PostMapping("/register")
     public ModelAndView processRegistration(@Valid @ModelAttribute("regForm") NewUserDto form, Errors errors) {

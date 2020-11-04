@@ -2,10 +2,12 @@ package by.mrbregovich.iba.project.service.impl;
 
 import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.entity.Contact;
+import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.entity.UserStatus;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.exception.UserNotFoundException;
+import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.repository.RoleRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
 import by.mrbregovich.iba.project.service.UserService;
@@ -26,11 +28,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RequestRepository requestRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+                           RequestRepository requestRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.requestRepository = requestRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -115,5 +120,15 @@ public class UserServiceImpl implements UserService {
 
         //обработать вариант, если менеджер является основателем компании
 
+    }
+
+    @Override
+    public void processRequest(Long requestId, Long userId) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            return new UserNotFoundException(AppConstants.USER_ID_NOT_FOUND_MSG);
+        });
+        Request request = requestRepository.findById(requestId).get();
+
+        user.addRequest(request);
     }
 }

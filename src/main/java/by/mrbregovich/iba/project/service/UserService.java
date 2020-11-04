@@ -23,4 +23,6 @@ public interface UserService {
     void deleteById(Long id) throws UserNotFoundException;
 
     void deleteByLogin(String login) throws UserNotFoundException;
+
+    void processRequest(Long requestId, Long userId) throws UserNotFoundException;
 }

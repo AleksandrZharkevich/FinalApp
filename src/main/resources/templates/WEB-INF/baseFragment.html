@@ -17,13 +17,6 @@
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                     <li><a th:href="@{/}" class="nav-link">Главная</a></li>
                     <li><a th:href="@{/about}" class="nav-link">О нас</a></li>
-                    <!--                    <li class="has-children">-->
-                    <!--                        <a href="#">Job Listings</a>-->
-                    <!--                        <ul class="dropdown">-->
-                    <!--                            <li><a href="#">Job Single</a></li>-->
-                    <!--                            <li><a href="#">Post a Job</a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
                     <li><a th:href="@{/contact}" class="nav-link">Контакты</a></li>
                 </ul>
             </nav>
@@ -37,8 +30,11 @@
                             class="mr-2 icon-lock_outline"></span>Войти</a>
                 </div>
                 <div class="ml-auto" sec:authorize="isAuthenticated()">
-                    <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
-                            class="mr-2 icon-lock_open"></span>Выйти</a>
+                    <a th:href="@{/register}"
+                       class="btn btn-outline-white border-width-2 d-none d-lg-inline-block">
+                        [[${#authentication.principal.login}]]</a>
+                    <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-lock_open"></span>Выйти</a>
                 </div>
                 <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
                         class="icon-menu h3 m-0 p-0 mt-2"></span></a>

@@ -101,24 +101,6 @@
                     <h2 class="section-title mb-2">Активные компании</h2>
                 </div>
             </div>
-<!--            <div id="container" class="mb-5">-->
-<!--                <div th:each="company:${companyPage.content}"-->
-<!--                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">-->
-<!--                    <div class="col-md-2">-->
-<!--                        <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"-->
-<!--                             class="img-fluid">-->
-<!--                    </div>-->
-<!--                    <div class="col-md-7">-->
-<!--                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"-->
-<!--                               th:text="${company.name}"></a></h4>-->
-<!--                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-3 text-md-right">-->
-<!--                        <span class="meta">Окончание</span>-->
-<!--                        <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
 
             <div id="container" class="mb-5">
                 <div th:each="company:${activeCompanies}"
