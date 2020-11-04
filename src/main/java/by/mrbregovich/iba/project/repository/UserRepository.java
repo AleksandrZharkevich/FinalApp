@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByLogin(String login) throws UserNotFoundException;
+    User findByLogin(String login);
 
     User findByLoginOrContact_PhoneNumber(String login, String phoneNumber);
 

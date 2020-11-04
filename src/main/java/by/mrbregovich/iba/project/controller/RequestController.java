@@ -69,7 +69,7 @@ public class RequestController {
                 request.setManager(user);
                 requestService.save(request);
             }
-            modelAndView.setViewName("redirect:/companies/" + request.getCompany().getId());
+            modelAndView.setViewName("forward:/companies/" + request.getCompany().getId());
 
         } catch (RequestNotFoundException e) {
             e.printStackTrace();
