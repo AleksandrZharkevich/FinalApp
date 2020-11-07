@@ -2,11 +2,13 @@ package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.NewUserDto;
+import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
-import by.mrbregovich.iba.project.repository.UserRepository;
+import by.mrbregovich.iba.project.service.CompanyService;
 import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -26,12 +28,14 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private UserService userService;
+    private CompanyService companyService;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder, CompanyService companyService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.companyService = companyService;
     }
 
     @GetMapping("/register")
@@ -71,5 +75,13 @@ public class RegistrationController {
             }
         }
         return modelAndView;
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("user", user);
+        model.addAttribute("createdCompanies", companyService.findCreatedCompaniesByOwnerId(user.getId()));
+        model.addAttribute("joinedCompanies", companyService.findJoinedCompaniesByParticipantId(user.getId()));
+        return "profile";
     }
 }

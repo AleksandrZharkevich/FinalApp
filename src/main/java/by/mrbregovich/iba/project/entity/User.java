@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -152,5 +153,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return userStatus != UserStatus.DELETED && userStatus != UserStatus.NOT_ACTIVE;
+    }
+
+    @JsonIgnore
+    @Transient
+    public List<Company> getActiveJoinedCompanies() {
+        return this.joinedCompanies.stream()
+                .filter(company -> company.getCompanyStatus() == CompanyStatus.ACTIVE)
+                .collect(Collectors.toList());
     }
 }

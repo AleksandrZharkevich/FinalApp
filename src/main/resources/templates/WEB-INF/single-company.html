@@ -39,16 +39,24 @@
              id="home-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
-                    <h1 class="text-white font-weight-bold" th:text="${company.name}">Company</h1>
-                    <div class="custom-breadcrumbs">
-                        <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong>Company</strong></span><span class="mx-2 slash">/</span>
-                        <span class="text-white"><strong th:text="${company.id}"></strong></span>
+                <!--                <div class="col-md-7">-->
+                <!--                    <h1 class="text-white font-weight-bold" th:text="${company.name}">Company</h1>-->
+                <!--                    <div class="custom-breadcrumbs">-->
+                <!--                        <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>-->
+                <!--                        <span class="text-white"><strong>Company</strong></span><span class="mx-2 slash">/</span>-->
+                <!--                        <span class="text-white"><strong th:text="${company.id}"></strong></span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="col-md-12">
+                    <div class="custom-breadcrumbs mb-0">
+                        <span class="slash">Организатор </span> [[${company.owner.login}]]</a>
+                        <span class="mx-2 slash">&bullet;</span>
+                        <span class="text-white"><strong
+                                th:text="${#temporals.format(company.createdAt, 'd MMMM yyyy')}">temporals.format(company.createdAt, "dd MM yyyy")</strong></span>
                     </div>
+                    <h1 class="text-white">[[${company.name}]]</h1>
                 </div>
             </div>
-        </div>
     </section>
 
     <section class="site-section">
@@ -59,9 +67,9 @@
                         <div class="border p-2 d-inline-block mr-3 rounded">
                             <img class="companyImg" th:src="@{${company.imgUrl}}" alt="Image">
                         </div>
-                        <div>
-                            <h2 th:text="${company.name}">Company name</h2>
-                        </div>
+<!--                        <div>-->
+<!--                            <h2 th:text="${company.name}">Company name</h2>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -105,10 +113,8 @@
                 </div>
             </div>
 
-
             <div id="donatePanel" class="row justify-content-end">
                 <div class="col-lg-8 justify-content-end">
-                    <!--                    <div id="donate" class="row justify-content-end">-->
                     <div class="row justify-content-end">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
                             <input id="donateAmount" type="number" min="1" class="form-control form-control-lg"
@@ -135,10 +141,6 @@
                     </div>
 
                     <div class="row mb-5 justify-content-end">
-                        <!--                        <div sec:authorize="isAuthenticated()" class="col-4">-->
-                        <!--                            <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}"-->
-                        <!--                               class="btn btn-block btn-light btn-md">Изменить</a>-->
-                        <!--                        </div>-->
                         <div class="col-4">
                             <a href="#" th:href="@{'/request/' + ${company.id}}"
                                class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
@@ -152,8 +154,12 @@
                         <ul class="list-unstyled pl-3 mb-0">
                             <li class="mb-2"><strong class="text-black">Инициатор:</strong> [[${company.owner.login}]]
                             </li>
-                            <li class="mb-2"><strong class="text-black">Начало:</strong> [[${company.createdAt}]]</li>
-                            <li class="mb-2"><strong class="text-black">Окончание:</strong> [[${company.endDate}]]</li>
+                            <li class="mb-2"><strong class="text-black">Начало:</strong>
+                                [[${#temporals.format(company.createdAt, 'd MMMM yyyy')}]]
+                            </li>
+                            <li class="mb-2"><strong class="text-black">Окончание:</strong>
+                                [[${#temporals.format(company.endDate, 'd MMMM yyyy')}]]
+                            </li>
                             <li sec:authorize="isAuthenticated()"
                                 th:if="${#authentication.principal.id} == ${company.owner.id}"
                                 class="mb-2">

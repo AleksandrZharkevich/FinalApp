@@ -8,6 +8,7 @@ import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
+import by.mrbregovich.iba.project.repository.UserRepository;
 import by.mrbregovich.iba.project.service.CompanyService;
 import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyRepository companyRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, UserRepository userRepository) {
         this.companyRepository = companyRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -160,5 +163,20 @@ public class CompanyServiceImpl implements CompanyService {
                 companyRepository.save(company);
             }
         });
+    }
+
+    @Override
+    public List<Company> findCreatedCompaniesByOwnerId(Long ownerId) {
+        return companyRepository.findAllByOwner_Id(ownerId).stream()
+                .sorted((c1, c2) -> c2.getCreatedAt().compareTo(c1.getCreatedAt()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Company> findJoinedCompaniesByParticipantId(Long userId) {
+        User participant = userRepository.findById(userId).get();
+        return companyRepository.findAllByParticipantsContains(participant).stream()
+                .sorted((c1, c2) -> c2.getCreatedAt().compareTo(c1.getCreatedAt()))
+                .collect(Collectors.toList());
     }
 }

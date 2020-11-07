@@ -30,7 +30,7 @@
                             class="mr-2 icon-lock_outline"></span>Войти</a>
                 </div>
                 <div class="ml-auto" sec:authorize="isAuthenticated()">
-                    <a th:href="@{/register}"
+                    <a th:href="@{/profile}"
                        class="btn btn-outline-white border-width-2 d-none d-lg-inline-block">
                         [[${#authentication.principal.login}]]</a>
                     <a th:href="@{/logout}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">

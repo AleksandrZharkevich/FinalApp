@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>The Choice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body id="top">
+
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+
+    <!-- NAVBAR -->
+    <div th:replace="baseFragment::header"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold" th:text="${user.login}">Login</h1>
+                    <div class="custom-breadcrumbs">
+                        <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Profile</strong></span><span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong th:text="${user.login}"></strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="bg-light p-3 border rounded mb-4">
+                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Профиль</h3>
+                        <ul class="list-unstyled pl-3 mb-0">
+                            <li class="mb-2"><strong class="text-black">Имя: </strong> [[${user.contact.firstname}]]
+                            </li>
+                            <li class="mb-2"><strong class="text-black">Фамилия: </strong> [[${user.contact.lastname}]]
+                            </li>
+                            <li class="mb-2"><strong class="text-black">Телефон: </strong>
+                                [[${user.contact.phoneNumber}]]
+                            </li>
+                            <li class="mb-2"><strong class="text-black">Эл. адрес: </strong> [[${user.email}]]</li>
+                            <li class="mb-2"><strong class="text-black">Зарегистрировался: </strong>
+                                [[${#temporals.format(user.createdAt, 'd MMMM yyyy')}]]
+                            </li>
+                            <li class="mb-2"><a href="#" style="color: red">Редактировать</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container my-3">
+
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-7 text-center">
+                    <h2 class="section-title mb-2">Ваши компании</h2>
+                </div>
+            </div>
+
+            <div th:if="${createdCompanies.size()>0}" class="mb-5">
+                <div th:each="company:${createdCompanies}"
+                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
+                    <div class="col-md-2">
+                        <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"
+                             class="img-fluid">
+                    </div>
+                    <div class="col-md-7">
+                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"
+                               th:text="${company.name}"></a></h4>
+                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>
+                    </div>
+                    <div class="col-md-3 text-md-right">
+                        <span class="meta">Окончание</span>
+                        <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${createdCompanies.size()==0}" class="mb-5">
+                <div class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
+                    <h4>У Вас нет созданных компаний</h4>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/start.jpg');">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="text-white">Заявки в обработке</h2>
+                    <p class="mb-0 text-white lead">Выберите компанию для отображения заявок в обработке.</p>
+                </div>
+                <div th:if="${joinedCompanies.size()==0}" class="col-md-5 ml-auto">
+                    <h6 class="text-white text-warning text-right">Вы не присоединились ни к одной компании</h6>
+                </div>
+                <div th:if="${joinedCompanies.size()>0}" class="col-md-5 ml-auto">
+                    <select class="selectpicker text-right" data-style="btn-white btn-lg text-white" data-width="100%"
+                            data-live-search="true" title="Выберите...">
+                        <option th:each="company: ${joinedCompanies}"
+                                th:value="${company.id}" th:text="${company.name}">name
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+<!--    <section class="py-4 bg-image overlay-primary fixed overlay"-->
+<!--             th:style="'background-image: url(' + @{/images/start.jpg} + ');'">-->
+<!--        <div class="container">-->
+<!--            <div class="row align-items-center">-->
+<!--                <h2 class="text-white">Заявки у Вас в обработке</h2>-->
+<!--            </div>-->
+<!--            <div class="row align-items-start">-->
+<!--                <div class="col-4"><h2 class="text-white">Компания</h2></div>-->
+
+<!--                <div th:if="${joinedCompanies.size()==0}"-->
+<!--                     class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">-->
+<!--                    <h2 class="text-white">Вы не присоединились ни к одной компании</h2>-->
+<!--                </div>-->
+
+<!--                <div th:if="${joinedCompanies.size()>0}"-->
+<!--                     class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">-->
+<!--                    <select class="selectpicker" data-style="btn-white btn-lg text-white" data-width="100%"-->
+<!--                            data-live-search="true" title="Выберите...">-->
+<!--                        <option th:each="company: ${joinedCompanies}"-->
+<!--                                th:value="${company.id}" th:text="${company.name}">name-->
+<!--                        </option>-->
+<!--                        &lt;!&ndash;                        <option>San Francisco</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Palo Alto</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>New York</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Manhattan</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Ontario</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Toronto</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Kansas</option>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        <option>Mountain View</option>&ndash;&gt;-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--    <section id="requestSection" class="site-section">-->
+<!--        <div class="container">-->
+<!--            <div class="row mb-5 justify-content-center">-->
+<!--                <div class="col-md-7 text-center">-->
+<!--                    <h2 class="section-title mb-2">Активные компании</h2>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;            <div id="container" class="mb-5">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div th:each="company:${activeCompanies}"&ndash;&gt;-->
+<!--            &lt;!&ndash;                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <div class="col-md-2">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"&ndash;&gt;-->
+<!--            &lt;!&ndash;                             class="img-fluid">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <div class="col-md-7">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"&ndash;&gt;-->
+<!--            &lt;!&ndash;                               th:text="${company.name}"></a></h4>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <div class="col-md-3 text-md-right">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <span class="meta">Окончание</span>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--            &lt;!&ndash;            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="col-md-6 text-center text-md-right">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <div class="custom-pagination ml-auto">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <div id="pages" class="d-inline-block">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <span th:each="pageNumber: ${pageNumbers}"&ndash;&gt;-->
+<!--            &lt;!&ndash;                                  th:text="${pageNumber}"&ndash;&gt;-->
+<!--            &lt;!&ndash;                                  th:data-page="${pageNumber}"&ndash;&gt;-->
+<!--            &lt;!&ndash;                                  th:onclick="'loadCompanies(\'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "&ndash;&gt;-->
+<!--            &lt;!&ndash;                                  th:class="ajaxLink"&ndash;&gt;-->
+<!--            &lt;!&ndash;                                  th:classappend="${pageNumber== 1} ? currentLink">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            </span>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </section>-->
+
+
+    <!-- FOOTER -->
+    <div th:replace="baseFragment::footer"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<div th:replace="baseFragment::scripts"></div>
+<script th:src="@{/js/singleCompanyFunctions.js}"></script>
+
+</body>
+</html>

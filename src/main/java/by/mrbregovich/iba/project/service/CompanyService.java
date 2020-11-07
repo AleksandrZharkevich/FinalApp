@@ -30,4 +30,8 @@ public interface CompanyService {
     String deleteParticipant(Long companyId, User user) throws CompanyNotFoundException;
 
     void checkExpiration();
+
+    List<Company> findCreatedCompaniesByOwnerId(Long ownerId);
+
+    List<Company> findJoinedCompaniesByParticipantId(Long userId);
 }
