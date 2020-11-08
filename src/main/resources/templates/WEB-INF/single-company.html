@@ -39,14 +39,6 @@
              id="home-section">
         <div class="container">
             <div class="row">
-                <!--                <div class="col-md-7">-->
-                <!--                    <h1 class="text-white font-weight-bold" th:text="${company.name}">Company</h1>-->
-                <!--                    <div class="custom-breadcrumbs">-->
-                <!--                        <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>-->
-                <!--                        <span class="text-white"><strong>Company</strong></span><span class="mx-2 slash">/</span>-->
-                <!--                        <span class="text-white"><strong th:text="${company.id}"></strong></span>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="col-md-12">
                     <div class="custom-breadcrumbs mb-0">
                         <span class="slash">Организатор </span> [[${company.owner.login}]]</a>
@@ -54,25 +46,28 @@
                         <span class="text-white"><strong
                                 th:text="${#temporals.format(company.createdAt, 'd MMMM yyyy')}">temporals.format(company.createdAt, "dd MM yyyy")</strong></span>
                     </div>
-                    <h1 class="text-white">[[${company.name}]]</h1>
+                    <h1 class="text-white"><a style="text-decoration-line: none!important"
+                                              th:href="@{'/companies/' + ${company.id}}">[[${company.name}]]</a></h1>
                 </div>
             </div>
     </section>
 
     <section class="site-section">
         <div class="container">
+            <div th:if="${company.isClosed()}" class="row align-items-center mb-5">
+                <h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">Компания
+                    завершена</h3>
+            </div>
+
             <div class="row align-items-center mb-5">
                 <div class="col-lg-8 mb-4 mb-lg-0">
                     <div class="d-flex align-items-center">
                         <div class="border p-2 d-inline-block mr-3 rounded">
                             <img class="companyImg" th:src="@{${company.imgUrl}}" alt="Image">
                         </div>
-<!--                        <div>-->
-<!--                            <h2 th:text="${company.name}">Company name</h2>-->
-<!--                        </div>-->
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div th:if="${!company.isClosed()}" class="col-lg-4">
                     <div class="row">
                         <div class="col-6">
                             <a id="donateBtn" class="btn btn-block btn-light btn-md"><span

@@ -1,9 +1,11 @@
 package by.mrbregovich.iba.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -15,12 +17,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "companies")
 public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     @Column(name = "id")
     private Long id;
 
@@ -84,5 +88,11 @@ public class Company {
         this.requests.forEach(request -> {
             request.setRequestStatus(RequestStatus.COMPANY_EXPIRED);
         });
+    }
+
+    @JsonIgnore
+    @Transient
+    public boolean isClosed() {
+        return this.companyStatus == CompanyStatus.CLOSED;
     }
 }

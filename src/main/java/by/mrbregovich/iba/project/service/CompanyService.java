@@ -34,4 +34,6 @@ public interface CompanyService {
     List<Company> findCreatedCompaniesByOwnerId(Long ownerId);
 
     List<Company> findJoinedCompaniesByParticipantId(Long userId);
+
+    void closeCompany(Company company);
 }

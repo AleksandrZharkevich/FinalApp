@@ -62,7 +62,7 @@
 
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
-                                <label class="text-black" for="imgSelector">Изображение</label><br>
+                                <!--                                <label class="text-black" for="imgSelector">Изображение</label><br>-->
                                 <img id="imgCompany" th:src="${companyDto.imgUrl}" class="companyImg"
                                      align="center"/><br>
                                 <label class="btn btn-primary btn-md btn-file"
@@ -106,9 +106,13 @@
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <input type="submit" value="Сохранить изменения"
                                        class="btn px-4 btn-primary text-white">
+                            </div>
+                            <div class="col-md-6">
+                                <a th:href="@{'/companies/' + ${companyDto.id} + '/close'}"
+                                   class="btn px-4 btn-primary text-white">Остановить компанию</a>
                             </div>
                         </div>
 

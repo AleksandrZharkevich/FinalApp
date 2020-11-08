@@ -124,9 +124,12 @@ public class CompanyController {
     }
 
     @GetMapping("/companies/{id}/edit")
-    public String editCompanyForm(Model model, @PathVariable("id") Long id) {
+    public String editCompanyForm(Model model, @PathVariable("id") Long id, @AuthenticationPrincipal User user) {
         try {
             Company company = companyService.findCompanyById(id);
+            if (!company.getOwner().equals(user)) {
+                return "redirect:/";
+            }
             model.addAttribute("companyDto", CompanyDto.of(company));
             return "editCompany";
         } catch (CompanyNotFoundException e) {
@@ -137,10 +140,26 @@ public class CompanyController {
     @PostMapping("/companies/{id}/edit")
     public String processEditCompanyForm(@Valid @ModelAttribute("companyDto") CompanyDto form, Errors errors,
                                          @PathVariable("id") Long companyId, @AuthenticationPrincipal User user) {
-
         try {
             Company company = companyService.findCompanyById(companyId);
+            if (!company.getOwner().equals(user)) {
+                return "redirect:/";
+            }
             companyService.update(company, form);
+            return "redirect:/companies/" + companyId;
+        } catch (CompanyNotFoundException e) {
+            return "redirect:/";
+        }
+    }
+
+    @GetMapping("/companies/{companyId}/close")
+    public String closeCompany(Model model, @PathVariable("companyId") Long companyId, @AuthenticationPrincipal User user) {
+        try {
+            Company company = companyService.findCompanyById(companyId);
+            if (!company.getOwner().equals(user)) {
+                return "redirect:/";
+            }
+//            companyService.closeCompany(company);
             return "redirect:/companies/" + companyId;
         } catch (CompanyNotFoundException e) {
             return "redirect:/";

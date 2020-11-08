@@ -8,6 +8,7 @@ import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
+import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
 import by.mrbregovich.iba.project.service.CompanyService;
 import by.mrbregovich.iba.project.util.Mapper;
@@ -29,11 +30,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     private CompanyRepository companyRepository;
     private UserRepository userRepository;
+    private RequestRepository requestRepository;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, UserRepository userRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, UserRepository userRepository, RequestRepository requestRepository) {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
+        this.requestRepository = requestRepository;
     }
 
     @Override
@@ -139,13 +142,12 @@ public class CompanyServiceImpl implements CompanyService {
         if (!company.getParticipants().contains(user)) {
             resultMsg = AppConstants.PARTICIPANT_IS_NOT_JOINED;
         } else {
+            //1. Удалить юзера из участников компании
             company.getParticipants().remove(user);
+            //2. Удалить
             user.getRequests().forEach(request -> {
-                if (request.getCompany().getId() == companyId) {
+                if (request.getCompany().equals(company)) {
                     request.setRequestStatus(RequestStatus.REGISTERED);
-
-                    //возможно надо сохранить через риквест репозитори
-
                 }
             });
             companyRepository.save(company);
@@ -178,5 +180,10 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.findAllByParticipantsContains(participant).stream()
                 .sorted((c1, c2) -> c2.getCreatedAt().compareTo(c1.getCreatedAt()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void closeCompany(Company company) {
+
     }
 }

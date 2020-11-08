@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
     <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
     <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
@@ -131,92 +130,9 @@
                         </option>
                     </select>
                 </div>
-
             </div>
         </div>
     </section>
-
-
-<!--    <section class="py-4 bg-image overlay-primary fixed overlay"-->
-<!--             th:style="'background-image: url(' + @{/images/start.jpg} + ');'">-->
-<!--        <div class="container">-->
-<!--            <div class="row align-items-center">-->
-<!--                <h2 class="text-white">Заявки у Вас в обработке</h2>-->
-<!--            </div>-->
-<!--            <div class="row align-items-start">-->
-<!--                <div class="col-4"><h2 class="text-white">Компания</h2></div>-->
-
-<!--                <div th:if="${joinedCompanies.size()==0}"-->
-<!--                     class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">-->
-<!--                    <h2 class="text-white">Вы не присоединились ни к одной компании</h2>-->
-<!--                </div>-->
-
-<!--                <div th:if="${joinedCompanies.size()>0}"-->
-<!--                     class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">-->
-<!--                    <select class="selectpicker" data-style="btn-white btn-lg text-white" data-width="100%"-->
-<!--                            data-live-search="true" title="Выберите...">-->
-<!--                        <option th:each="company: ${joinedCompanies}"-->
-<!--                                th:value="${company.id}" th:text="${company.name}">name-->
-<!--                        </option>-->
-<!--                        &lt;!&ndash;                        <option>San Francisco</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Palo Alto</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>New York</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Manhattan</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Ontario</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Toronto</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Kansas</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <option>Mountain View</option>&ndash;&gt;-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-
-<!--    <section id="requestSection" class="site-section">-->
-<!--        <div class="container">-->
-<!--            <div class="row mb-5 justify-content-center">-->
-<!--                <div class="col-md-7 text-center">-->
-<!--                    <h2 class="section-title mb-2">Активные компании</h2>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash;            <div id="container" class="mb-5">&ndash;&gt;-->
-<!--            &lt;!&ndash;                <div th:each="company:${activeCompanies}"&ndash;&gt;-->
-<!--            &lt;!&ndash;                     class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <div class="col-md-2">&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <img align="center" width="100" height="100" th:src="@{${company.imgUrl}}" alt="Image"&ndash;&gt;-->
-<!--            &lt;!&ndash;                             class="img-fluid">&ndash;&gt;-->
-<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <div class="col-md-7">&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <h4><a th:href="@{'/companies/' + ${company.id}}" href="#"&ndash;&gt;-->
-<!--            &lt;!&ndash;                               th:text="${company.name}"></a></h4>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <div class="col-md-3 text-md-right">&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <span class="meta">Окончание</span>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--            &lt;!&ndash;            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">&ndash;&gt;-->
-<!--            &lt;!&ndash;                <div class="col-md-6 text-center text-md-right">&ndash;&gt;-->
-<!--            &lt;!&ndash;                    <div class="custom-pagination ml-auto">&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <div id="pages" class="d-inline-block">&ndash;&gt;-->
-<!--            &lt;!&ndash;                            <span th:each="pageNumber: ${pageNumbers}"&ndash;&gt;-->
-<!--            &lt;!&ndash;                                  th:text="${pageNumber}"&ndash;&gt;-->
-<!--            &lt;!&ndash;                                  th:data-page="${pageNumber}"&ndash;&gt;-->
-<!--            &lt;!&ndash;                                  th:onclick="'loadCompanies(\'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "&ndash;&gt;-->
-<!--            &lt;!&ndash;                                  th:class="ajaxLink"&ndash;&gt;-->
-<!--            &lt;!&ndash;                                  th:classappend="${pageNumber== 1} ? currentLink">&ndash;&gt;-->
-<!--            &lt;!&ndash;                            </span>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </section>-->
-
 
     <!-- FOOTER -->
     <div th:replace="baseFragment::footer"></div>
