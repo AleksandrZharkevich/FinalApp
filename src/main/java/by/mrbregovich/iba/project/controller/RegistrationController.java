@@ -2,9 +2,12 @@ package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.NewUserDto;
+import by.mrbregovich.iba.project.entity.Request;
+import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.service.CompanyService;
+import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,19 +26,24 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class RegistrationController {
 
-    private UserService userService;
-    private CompanyService companyService;
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final CompanyService companyService;
+    private final RequestService requestService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder, CompanyService companyService) {
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder,
+                                  CompanyService companyService, RequestService requestService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.companyService = companyService;
+        this.requestService = requestService;
     }
 
     @GetMapping("/register")
@@ -82,6 +90,10 @@ public class RegistrationController {
         model.addAttribute("user", user);
         model.addAttribute("createdCompanies", companyService.findCreatedCompaniesByOwnerId(user.getId()));
         model.addAttribute("joinedCompanies", companyService.findJoinedCompaniesByParticipantId(user.getId()));
+        List<Request> allActiveRequests = requestService.findAllActiveRequestsByUser(user).stream()
+                .sorted((r1, r2) -> r2.getPlacedAt().compareTo(r1.getPlacedAt()))
+                .collect(Collectors.toList());
+        model.addAttribute("allActiveRequests", allActiveRequests);
         return "profile";
     }
 }

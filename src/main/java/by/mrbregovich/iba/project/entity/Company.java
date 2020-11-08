@@ -82,14 +82,6 @@ public class Company {
         return Period.between(LocalDate.now(), endDate).getDays();
     }
 
-    @Transient
-    public void closeCompany() {
-        this.companyStatus = CompanyStatus.CLOSED;
-        this.requests.forEach(request -> {
-            request.setRequestStatus(RequestStatus.COMPANY_EXPIRED);
-        });
-    }
-
     @JsonIgnore
     @Transient
     public boolean isClosed() {

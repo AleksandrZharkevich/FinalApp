@@ -5,15 +5,10 @@ import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.entity.*;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
-import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
 import by.mrbregovich.iba.project.service.CompanyService;
 import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,15 +20,13 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private CompanyRepository companyRepository;
-    private UserRepository userRepository;
-    private RequestRepository requestRepository;
+    private final CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, UserRepository userRepository, RequestRepository requestRepository) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
-        this.requestRepository = requestRepository;
     }
 
     @Override
@@ -135,9 +128,8 @@ public class CompanyServiceImpl implements CompanyService {
     public void checkExpiration() {
         List<Company> companies = companyRepository.findAll();
         companies.forEach(company -> {
-            if (company.daysLeft() < 1) {
-                company.closeCompany();
-                companyRepository.save(company);
+            if (company.daysLeft() < 0) {
+                closeCompany(company);
             }
         });
     }

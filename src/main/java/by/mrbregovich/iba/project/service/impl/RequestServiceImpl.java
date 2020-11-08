@@ -6,6 +6,7 @@ import by.mrbregovich.iba.project.dto.RequestRestResponseDto;
 import by.mrbregovich.iba.project.entity.Contact;
 import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.entity.RequestStatus;
+import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.RequestAlreadyRegistered;
 import by.mrbregovich.iba.project.exception.RequestNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,19 +58,19 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> allActiveRequests(Long companyId) {
         List<Request> requests = requestRepository.findAllByRequestStatusIsAndCompany_Id(RequestStatus.REGISTERED, companyId);
-        if (requests == null) {
-            requests = Collections.emptyList();
-        }
-        return requests;
+        return Objects.requireNonNullElse(requests, Collections.emptyList());
+    }
+
+    @Override
+    public List<Request> findAllActiveRequestsByUser(User user) {
+        List<Request> requests = requestRepository.findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, user.getId());
+        return Objects.requireNonNullElse(requests, Collections.emptyList());
     }
 
     @Override
     public List<Request> allDoneRequests(Long companyId) {
         List<Request> requests = requestRepository.findAllByRequestStatusIsAndCompany_Id(RequestStatus.DONE, companyId);
-        if (requests == null) {
-            requests = Collections.emptyList();
-        }
-        return requests;
+        return Objects.requireNonNullElse(requests, Collections.emptyList());
     }
 
     @Override

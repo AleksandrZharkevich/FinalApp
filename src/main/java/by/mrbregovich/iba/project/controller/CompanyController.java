@@ -35,30 +35,12 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-//    @GetMapping(value = {"/", "/index"})
-//    public String listCompanies(Model model,
-//                                @RequestParam("page") Optional<Integer> page) {
-//        int currentPage = page.orElse(1);
-//        int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
-//
-//        Page<Company> companyPage = companyService.findActiveCompaniesByPage(PageRequest.of(currentPage - 1, pageSize));
-//
-//        model.addAttribute("companyPage", companyPage);
-//
-//        int totalPages = companyPage.getTotalPages();
-//        if (totalPages > 0) {
-//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-//
-//            model.addAttribute("pageNumbers", pageNumbers);
-//        }
-//
-//        return "index";
-//    }
-
     @GetMapping(value = {"/", "/index"})
     public String listCompanies(Model model) {
         int startPage = 1;
         int pageSize = AppConstants.COMPANIES_PAGE_SIZE;
+
+        companyService.checkExpiration();
 
         List<Company> activeCompanies = companyService.findActiveCompaniesByPageNumber(startPage, pageSize)
                 .stream()
