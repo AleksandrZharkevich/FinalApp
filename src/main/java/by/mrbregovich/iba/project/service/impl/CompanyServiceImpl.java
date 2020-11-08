@@ -2,10 +2,7 @@ package by.mrbregovich.iba.project.service.impl;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.CompanyDto;
-import by.mrbregovich.iba.project.entity.Company;
-import by.mrbregovich.iba.project.entity.CompanyStatus;
-import by.mrbregovich.iba.project.entity.RequestStatus;
-import by.mrbregovich.iba.project.entity.User;
+import by.mrbregovich.iba.project.entity.*;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.repository.CompanyRepository;
 import by.mrbregovich.iba.project.repository.RequestRepository;
@@ -37,28 +34,6 @@ public class CompanyServiceImpl implements CompanyService {
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
-    }
-
-    @Override
-    public Page<Company> findActiveCompaniesByPage(Pageable pageable) {
-
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-
-        List<Company> companies = companyRepository.findAllByCompanyStatusOrderByCreatedAtDesc(CompanyStatus.ACTIVE);
-        List<Company> list;
-        if (companies == null) {
-            companies = Collections.emptyList();
-        }
-        if (companies.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, companies.size());
-            list = companies.subList(startItem, toIndex);
-        }
-
-        return new PageImpl<Company>(list, PageRequest.of(currentPage, pageSize), companies.size());
     }
 
     @Override
@@ -101,7 +76,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setName(updatedForm.getName());
         company.setDescription(updatedForm.getDescription());
         if (company.daysLeft() != updatedForm.getDuration()) {
-            company.setEndDate(company.getEndDate().plusDays(updatedForm.getDuration()));
+            company.setEndDate(LocalDate.now().plusDays(updatedForm.getDuration()));
         }
         return companyRepository.save(company);
     }
@@ -178,12 +153,20 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> findJoinedCompaniesByParticipantId(Long userId) {
         User participant = userRepository.findById(userId).get();
         return companyRepository.findAllByParticipantsContains(participant).stream()
+                .filter(company -> company.getCompanyStatus() == CompanyStatus.ACTIVE)
                 .sorted((c1, c2) -> c2.getCreatedAt().compareTo(c1.getCreatedAt()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void closeCompany(Company company) {
-
+        company.setCompanyStatus(CompanyStatus.CLOSED);
+        company.setEndDate(LocalDate.now());
+        List<Request> requests = company.getRequests().stream()
+                .filter(request -> (request.getRequestStatus() == RequestStatus.IN_PROCESS
+                        || request.getRequestStatus() == RequestStatus.REGISTERED))
+                .collect(Collectors.toList());
+        requests.forEach(request -> request.setRequestStatus(RequestStatus.COMPANY_EXPIRED));
+        companyRepository.save(company);
     }
 }

@@ -6,7 +6,7 @@
     <title>The Choice</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" th:href="@{/images/choice.ico}">
 
     <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
     <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
@@ -137,7 +137,9 @@
 
                     <div class="row mb-5 justify-content-end">
                         <div class="col-4">
-                            <a href="#" th:href="@{'/request/' + ${company.id}}"
+                            <a th:if="${!company.isClosed()}" href="#" th:href="@{'/request/' + ${company.id}}"
+                               class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
+                            <a th:if="${company.isClosed()}"
                                class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
                         </div>
                     </div>

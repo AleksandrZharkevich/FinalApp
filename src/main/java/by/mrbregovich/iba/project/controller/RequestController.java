@@ -62,7 +62,7 @@ public class RequestController {
         try {
             Request request = requestService.findById(requestId);
 
-            if (!request.getCompany().getParticipants().contains(user)) {
+            if (!request.getCompany().getParticipants().contains(user) || !request.getCompany().getOwner().equals(user)) {
                 modelAndView.addObject("errorMessage", AppConstants.USER_IS_NOT_PARTICIPANT);
             } else {
                 request.setRequestStatus(RequestStatus.IN_PROCESS);

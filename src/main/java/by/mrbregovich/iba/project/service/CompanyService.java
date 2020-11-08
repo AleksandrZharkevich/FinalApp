@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface CompanyService {
 
-    Page<Company> findActiveCompaniesByPage(Pageable pageable);
-
     List<Company> findActiveCompanies();
 
     List<Company> findActiveCompaniesByPageNumber(int pageNumber, int pageSize);

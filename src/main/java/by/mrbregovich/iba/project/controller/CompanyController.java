@@ -159,7 +159,7 @@ public class CompanyController {
             if (!company.getOwner().equals(user)) {
                 return "redirect:/";
             }
-//            companyService.closeCompany(company);
+            companyService.closeCompany(company);
             return "redirect:/companies/" + companyId;
         } catch (CompanyNotFoundException e) {
             return "redirect:/";

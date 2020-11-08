@@ -6,6 +6,7 @@
     <title>The Choice</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/choice.ico}">
 
     <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
     <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
@@ -96,9 +97,13 @@
                                th:text="${company.name}"></a></h4>
                         <p class="meta">Организатор: <strong th:text="${company.owner.login}"></strong></p>
                     </div>
-                    <div class="col-md-3 text-md-right">
-                        <span class="meta">Окончание</span>
+                    <div th:if="${!company.isClosed()}" class="col-md-3 text-md-right">
+                        <span class="meta">Окончание компании через</span>
                         <h4 th:text="${company.daysLeft()} + ' дн.'"></h4>
+                    </div>
+                    <div th:if="${company.isClosed()}" class="col-md-3 text-md-right">
+                        <span class="meta">Компания завершена</span>
+                        <h4 th:text="${#temporals.format(company.endDate, 'd MMMM yyyy')}"></h4>
                     </div>
                 </div>
             </div>

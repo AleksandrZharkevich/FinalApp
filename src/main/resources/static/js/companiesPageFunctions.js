@@ -16,7 +16,7 @@ function loadCompanies(pageNumber, totalPages) {
                     "</p>" +
                     "</div>" +
                     "<div class=\"col-md-3 text-md-right\">" +
-                    "<span class=\"meta\">Окончание</span>" +
+                    "<span class=\"meta\">Окончание компании через</span>" +
                     "<h4>" + companyRestDto.daysLeft + " дн.</h4>" +
                     "</div>" +
                     "</div>"
