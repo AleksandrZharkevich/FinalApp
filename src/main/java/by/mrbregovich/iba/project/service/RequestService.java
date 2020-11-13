@@ -18,13 +18,7 @@ public interface RequestService {
 
     Request findById(Long requestId) throws RequestNotFoundException;
 
-    List<Request> allActiveRequests(Long companyId);
-
     List<Request> findAllActiveRequestsByUser(User user);
-
-    List<Request> allDoneRequests(Long companyId);
-
-    List<Request> allByManager(String login, Long companyId);
 
     List<Request> allByManagerId(Long managerId, Long companyId);
 

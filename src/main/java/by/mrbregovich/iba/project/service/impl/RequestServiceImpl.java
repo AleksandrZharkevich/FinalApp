@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 @Service
 public class RequestServiceImpl implements RequestService {
 
-    private RequestRepository requestRepository;
-    private CompanyRepository companyRepository;
+    private final RequestRepository requestRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
     public RequestServiceImpl(RequestRepository requestRepository, CompanyRepository companyRepository) {
@@ -56,30 +56,9 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<Request> allActiveRequests(Long companyId) {
-        List<Request> requests = requestRepository.findAllByRequestStatusIsAndCompany_Id(RequestStatus.REGISTERED, companyId);
-        return Objects.requireNonNullElse(requests, Collections.emptyList());
-    }
-
-    @Override
     public List<Request> findAllActiveRequestsByUser(User user) {
         List<Request> requests = requestRepository.findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, user.getId());
         return Objects.requireNonNullElse(requests, Collections.emptyList());
-    }
-
-    @Override
-    public List<Request> allDoneRequests(Long companyId) {
-        List<Request> requests = requestRepository.findAllByRequestStatusIsAndCompany_Id(RequestStatus.DONE, companyId);
-        return Objects.requireNonNullElse(requests, Collections.emptyList());
-    }
-
-    @Override
-    public List<Request> allByManager(String login, Long companyId) {
-        List<Request> requests = requestRepository.findAllByManager_LoginAndCompany_Id(login, companyId);
-        if (requests == null) {
-            requests = Collections.emptyList();
-        }
-        return requests;
     }
 
     @Override

@@ -29,13 +29,4 @@ public class RequestRestController {
         return requestService.findRegisteredRequestsByCompanyIdAndPageNumber(companyId, pageNumber);
     }
 
-//    @GetMapping("/api/process/{requestId}/{userId}")
-//    public List<RequestRestResponseDto> processRequest(@PathVariable("requestId") Long requestId,
-//                                                       @PathVariable("userId") Long userId) {
-//        try {
-//            userService.processRequest(requestId, userId);
-//        } catch (UserNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

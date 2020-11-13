@@ -145,7 +145,6 @@
             document.querySelector("#link").href = JSON.parse(xhr.responseText).data.link;
             document.querySelector("#imgCompany").src = JSON.parse(xhr.responseText).data.link;
             $("#imgUrl").val(JSON.parse(xhr.responseText).data.link);
-            // document.body.className = "uploaded";
         }
         xhr.setRequestHeader('Authorization', 'TOKEN O0qeUu6VdGF3q4hDltsI');
         xhr.send(fd);

@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 @Controller
 public class CompanyController {
 
-    private CompanyService companyService;
+    private final CompanyService companyService;
 
     @Autowired
     public CompanyController(CompanyService companyService) {

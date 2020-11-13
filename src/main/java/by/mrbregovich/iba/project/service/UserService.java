@@ -14,15 +14,7 @@ public interface UserService {
 
     User findById(Long id) throws UserNotFoundException;
 
-    List<User> findAll();
-
     List<User> findAllDeletedUsers();
 
-    List<User> findAllActiveUsers();
-
     void deleteById(Long id) throws UserNotFoundException;
-
-    void deleteByLogin(String login) throws UserNotFoundException;
-
-    void processRequest(Long requestId, Long userId) throws UserNotFoundException;
 }

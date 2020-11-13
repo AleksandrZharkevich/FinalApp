@@ -76,22 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    @Override
     public List<User> findAllDeletedUsers() {
         List<User> users = userRepository.findAllByUserStatusIs(UserStatus.DELETED);
-        if (users == null) {
-            return new ArrayList<>();
-        }
-        return users;
-    }
-
-    @Override
-    public List<User> findAllActiveUsers() {
-        List<User> users = userRepository.findAllByUserStatusIs(UserStatus.ACTIVE);
         if (users == null) {
             return new ArrayList<>();
         }
@@ -107,28 +93,5 @@ public class UserServiceImpl implements UserService {
 
         //обработать вариант, если менеджер является основателем компании
 
-    }
-
-    @Override
-    public void deleteByLogin(String login) throws UserNotFoundException {
-        User user = userRepository.findByLogin(login);
-        if (user == null) {
-            throw new UserNotFoundException(AppConstants.LOGIN_NOT_FOUND_MSG);
-        }
-        user.setUserStatus(UserStatus.DELETED);
-        //вернуть все заявки, обрабатываемые эти менеджером
-
-        //обработать вариант, если менеджер является основателем компании
-
-    }
-
-    @Override
-    public void processRequest(Long requestId, Long userId) throws UserNotFoundException {
-        User user = userRepository.findById(userId).orElseThrow(() -> {
-            return new UserNotFoundException(AppConstants.USER_ID_NOT_FOUND_MSG);
-        });
-        Request request = requestRepository.findById(requestId).get();
-
-        user.addRequest(request);
     }
 }
