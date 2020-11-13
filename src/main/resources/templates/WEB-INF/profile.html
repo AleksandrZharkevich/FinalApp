@@ -128,7 +128,7 @@
                     <h6 class="text-white text-warning text-right">Вы не присоединились ни к одной компании</h6>
                 </div>
                 <div th:if="${joinedCompanies.size()>0}" class="col-md-5 ml-auto">
-                    <select class="selectpicker text-right" data-style="btn-white btn-lg text-white" data-width="100%"
+                    <select id="selectId" class="selectpicker text-right" data-style="btn-white btn-lg text-white" data-width="100%"
                             data-live-search="true" title="Выберите...">
                         <option th:each="company: ${joinedCompanies}"
                                 th:value="${company.id}" th:text="${company.name}">name
@@ -163,8 +163,8 @@
                             [[${request.contact.district}]] район</p>
                     </div>
                     <div class="col-md-3 text-md-left">
-                        <p><a href="#" class="meta">Отметить как выполненное</a></p>
-                        <p><a href="#" class="meta">Отказаться</a></p>
+                        <p><span class="meta link" style="color: blue!important">Отметить как выполненное</span></p>
+                        <p><span class="meta link" style="color: red!important">Отказаться</span></p>
                     </div>
                 </div>
             </div>
@@ -195,7 +195,7 @@
 
 <!-- SCRIPTS -->
 <div th:replace="baseFragment::scripts"></div>
-<script th:src="@{/js/singleCompanyFunctions.js}"></script>
+<script th:src="@{/js/profileFunctions.js}"></script>
 
 </body>
 </html>
