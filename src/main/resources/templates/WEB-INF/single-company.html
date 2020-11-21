@@ -159,6 +159,11 @@
                                 [[${#temporals.format(company.endDate, 'd MMMM yyyy')}]]
                             </li>
                             <li sec:authorize="isAuthenticated()"
+                                th:if="${#authentication.principal.id} == ${company.owner.id}" class="mb-2"><strong
+                                    class="text-black">Помощь:</strong>
+                                $ [[${company.donate}]]
+                            </li>
+                            <li sec:authorize="isAuthenticated()"
                                 th:if="${#authentication.principal.id} == ${company.owner.id}"
                                 class="mb-2">
                                 <a href="#" th:href="@{'/companies/' + ${company.id} + '/edit'}" style="color: red">Изменить</a>
