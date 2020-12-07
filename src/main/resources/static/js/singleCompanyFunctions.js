@@ -13,7 +13,8 @@ function sendJoinRequest(companyId, userId) {
         url: "/api/join/" + companyId + "/" + userId,
         success: function (data) {
             $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
-            $("#joinMsg").slideDown();
+            $("#joinMsg").slideDown().delay(2000).slideUp();
+            $("#joinPanel").delay(2000).slideToggle("slow");
         }
     });
 }
@@ -24,7 +25,8 @@ function sendQuitRequest(companyId, userId) {
         url: "/api/quit/" + companyId + "/" + userId,
         success: function (data) {
             $("#joinMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
-            $("#joinMsg").slideDown();
+            $("#joinMsg").slideDown().delay(2000).slideUp();
+            $("#joinPanel").delay(2000).slideToggle("slow");
         }
     });
 }
@@ -35,7 +37,7 @@ function sendDonate(companyId) {
         url: "/api/donate/" + companyId + "/" + $('#donateAmount').val(),
         success: function (data) {
             $("#donateMsg").html('<h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">' + data.message + '</h3>');
-            $("#donateMsg").slideDown();
+            $("#donateMsg").slideDown().delay(2000).slideUp();
         }
     });
 }

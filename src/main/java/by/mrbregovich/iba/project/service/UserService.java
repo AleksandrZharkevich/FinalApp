@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.service;
 
+import by.mrbregovich.iba.project.dto.EditUserDto;
 import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
@@ -17,4 +18,6 @@ public interface UserService {
     List<User> findAllDeletedUsers();
 
     void deleteById(Long id) throws UserNotFoundException;
+
+    User update(User user, EditUserDto form);
 }

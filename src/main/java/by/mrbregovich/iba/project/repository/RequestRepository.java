@@ -12,9 +12,9 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     Request findByContact_PhoneNumberAndCompany_Id(String phoneNumber, Long id);
 
-    List<Request> findAllByManager_LoginAndCompany_Id(String login, Long id);
-
     List<Request> findAllByManager_IdAndCompany_Id(Long managerId, Long companyId);
+
+    List<Request> findAllByRequestStatusIs(RequestStatus requestStatus);
 
     List<Request> findAllByRequestStatusIsAndCompany_Id(RequestStatus requestStatus, Long id);
 

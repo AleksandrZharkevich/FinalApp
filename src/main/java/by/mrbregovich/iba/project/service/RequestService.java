@@ -25,4 +25,8 @@ public interface RequestService {
     List<RequestRestResponseDto> findRegisteredRequestsByCompanyIdAndPageNumber(Long id, Integer pageNumber);
 
     Request save(Request request);
+
+    long getAllRequestsCount();
+
+    long getAllDoneRequestsCount();
 }

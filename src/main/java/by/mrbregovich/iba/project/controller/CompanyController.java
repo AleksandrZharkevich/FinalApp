@@ -8,6 +8,7 @@ import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
 import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
+import by.mrbregovich.iba.project.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,10 +30,12 @@ import java.util.stream.IntStream;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final RequestService requestService;
 
     @Autowired
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, RequestService requestService) {
         this.companyService = companyService;
+        this.requestService = requestService;
     }
 
     @GetMapping(value = {"/", "/index"})
@@ -50,6 +53,9 @@ public class CompanyController {
         model.addAttribute("activeCompanies", activeCompanies);
 
         int totalActiveCompaniesCount = companyService.findActiveCompanies().size();
+        model.addAttribute("totalActiveCompanies", totalActiveCompaniesCount);
+        model.addAttribute("totalRegisteredRequests", requestService.getAllRequestsCount());
+        model.addAttribute("totalDoneRequests", requestService.getAllDoneRequestsCount());
         List<Integer> pageNumbers = new ArrayList<>();
         if (totalActiveCompaniesCount > AppConstants.COMPANIES_PAGE_SIZE) {
             int totalPages = (int) Math.ceil(totalActiveCompaniesCount / (AppConstants.COMPANIES_PAGE_SIZE * 1.0));

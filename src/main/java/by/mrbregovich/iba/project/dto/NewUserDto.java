@@ -5,19 +5,15 @@ import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-//import javax.validation.constraints.Size;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class NewUserDto extends ContactDto {
-    //    @Size(min = 2, message = "{valid.login.size.min2}")
     @NotBlank(message = AppConstants.VALIDATION_LOGIN)
     private String login;
-    //    @Size(min = 5, message = "{valid.password.size.min5}")
     @NotBlank(message = AppConstants.VALIDATION_PASSWORD)
     private String password;
-    //    @Email(message = "{valid.email.invalidEmail}")
     @Email(message = AppConstants.VALIDATION_CORRECT_EMAIL)
     @NotBlank(message = AppConstants.VALIDATION_EMAIL)
     private String email;

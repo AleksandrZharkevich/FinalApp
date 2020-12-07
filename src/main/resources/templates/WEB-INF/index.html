@@ -59,7 +59,6 @@
         <a href="#next" class="scroll-button smoothscroll">
             <span class=" icon-keyboard_arrow_down"></span>
         </a>
-
     </section>
 
     <section class="py-5 bg-image overlay-primary fixed overlay" id="next"
@@ -68,9 +67,7 @@
             <div class="row pb-0 block__19738 section-counter justify-content-center">
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-
-                        <!--доработать-->
-                        <strong class="number" th:attr="data-number='15'">0</strong>
+                        <strong class="number" th:attr="data-number=${totalActiveCompanies}">0</strong>
                     </div>
                     <span class="caption">Активных компаний</span>
                 </div>
@@ -78,7 +75,7 @@
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
                         <!--доработать-->
-                        <strong class="number" th:attr="data-number='120'">0</strong>
+                        <strong class="number" th:attr="data-number=${totalRegisteredRequests}">0</strong>
                     </div>
                     <span class="caption">Подано заявок</span>
                 </div>
@@ -86,7 +83,7 @@
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
                         <!--доработать-->
-                        <strong class="number" th:attr="data-number='57'">0</strong>
+                        <strong class="number" th:attr="data-number=${totalDoneRequests}">0</strong>
                     </div>
                     <span class="caption">Выполнено заявок</span>
                 </div>

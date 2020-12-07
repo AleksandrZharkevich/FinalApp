@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>The Choice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" th:href="@{/images/choice.ico}">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body id="top">
+
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+
+    <!-- NAVBAR -->
+    <div th:replace="baseFragment::header"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold" th:text="${editUserDto.login}">Login</h1>
+                    <div class="custom-breadcrumbs">
+                        <a th:href="@{/}">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Edit</strong></span><span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong th:text="${editUserDto.login}"></strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-md-2">
+                    <h2 class="mb-4">Изменить</h2>
+                    <form method="post" th:action="@{/profile/edit}" th:object="${editUserDto}" class="p-4 border rounded">
+                        <h3>Контактная информация</h3>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="firstname">Имя</label>
+                                <input type="text" id="firstname" th:field="*{firstname}" name="firstname"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="lastname">Фамилия</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('lastname')}"
+                                   th:errors="*{lastname}">Last name error</p>
+                                <input type="text" id="lastname" th:field="*{lastname}" name="lastname"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="region">Область</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('region')}"
+                                   th:errors="*{region}">Region error</p>
+                                <input type="text" id="region" th:field="*{region}" name="region"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="district">Район</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('district')}"
+                                   th:errors="*{district}">District error</p>
+                                <input type="text" id="district" th:field="*{district}" name="district"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="city">Город</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('city')}"
+                                   th:errors="*{city}">City error</p>
+                                <input type="text" id="city" th:field="*{city}" name="city"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="streetAddress">Улица и номер дома</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('streetAddress')}"
+                                   th:errors="*{streetAddress}">Address error</p>
+                                <input type="text" id="streetAddress" th:field="*{streetAddress}" name="streetAddress"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <input type="submit" value="Сохранить изменения"
+                                       class="btn px-4 btn-primary text-white">
+                            </div>
+                            <div class="col-md-6">
+                                <a th:href="@{/profile/delete}"
+                                   class="btn px-4 btn-primary text-white">Удалить профиль</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <div th:replace="baseFragment::footer"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<div th:replace="baseFragment::scripts"></div>
+<script th:src="@{/js/profileFunctions.js}"></script>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.service.impl;
 
+import by.mrbregovich.iba.project.dto.EditUserDto;
 import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.entity.Contact;
 import by.mrbregovich.iba.project.entity.Request;
@@ -93,5 +94,22 @@ public class UserServiceImpl implements UserService {
 
         //обработать вариант, если менеджер является основателем компании
 
+    }
+
+    @Override
+    public User update(User user, EditUserDto form) {
+        if(form.getRegion()!=null && !form.getRegion().equalsIgnoreCase("")){
+            user.getContact().setRegion(form.getRegion());
+        }
+        if(form.getDistrict()!=null && !form.getDistrict().equalsIgnoreCase("")){
+            user.getContact().setDistrict(form.getDistrict());
+        }
+        if(form.getCity()!=null && !form.getCity().equalsIgnoreCase("")){
+            user.getContact().setCity(form.getCity());
+        }
+        if(form.getStreetAddress()!=null && !form.getStreetAddress().equalsIgnoreCase("")){
+            user.getContact().setStreetAddress(form.getStreetAddress());
+        }
+        return userRepository.save(user);
     }
 }

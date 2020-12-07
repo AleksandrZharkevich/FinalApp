@@ -90,4 +90,14 @@ public class RequestServiceImpl implements RequestService {
     public Request save(Request request) {
         return requestRepository.save(request);
     }
+
+    @Override
+    public long getAllRequestsCount() {
+        return requestRepository.count();
+    }
+
+    @Override
+    public long getAllDoneRequestsCount() {
+        return requestRepository.findAllByRequestStatusIs(RequestStatus.DONE).size();
+    }
 }
