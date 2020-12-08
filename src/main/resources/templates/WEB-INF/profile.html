@@ -166,10 +166,10 @@
                             [[${request.contact.district}]] район</p>
                     </div>
                     <div class="col-md-3 text-md-left">
-<!--                        <p><span class="meta link" style="color: blue!important">Отметить как выполненное</span></p>-->
                         <p><a href="#" th:href="@{'/request/process/' + ${request.id}}" class="meta"
                               style="color: blue!important">Обработать</a></p>
-                        <p><span class="meta link" style="color: red!important">Отказаться</span></p>
+                        <p><a href="#" th:href="@{'/request/return/' + ${request.id}}" class="meta"
+                              style="color: red!important">Отказаться</a></p>
                     </div>
                 </div>
             </div>

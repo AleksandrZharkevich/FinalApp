@@ -79,14 +79,32 @@ public class RequestController {
     }
 
     @GetMapping("/request/process/{id}")
-    public ModelAndView closeRequest(@PathVariable("id") Long requestId, @AuthenticationPrincipal User user){
+    public ModelAndView closeRequest(@PathVariable("id") Long requestId, @AuthenticationPrincipal User user) {
         ModelAndView modelAndView = new ModelAndView();
-        try{
+        try {
             Request request = requestService.findById(requestId);
 
-            if(request.getManager().equals(user)){
-                request.setRequestStatus(RequestStatus.DONE);
-                requestService.save(request);
+            if (request.getManager().equals(user)) {
+                requestService.closeRequest(request);
+                modelAndView.setViewName("forward:/profile");
+            } else {
+                modelAndView.setViewName("redirect:/");
+            }
+        } catch (RequestNotFoundException e) {
+            e.printStackTrace();
+            modelAndView.setViewName("redirect:/");
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("/request/return/{id}")
+    public ModelAndView returnRequest(@PathVariable("id") Long requestId, @AuthenticationPrincipal User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Request request = requestService.findById(requestId);
+
+            if (request.getManager().equals(user)) {
+                requestService.returnRequest(request);
                 modelAndView.setViewName("forward:/profile");
             } else {
                 modelAndView.setViewName("redirect:/");

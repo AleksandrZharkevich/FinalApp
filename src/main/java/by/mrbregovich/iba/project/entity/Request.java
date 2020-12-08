@@ -33,12 +33,12 @@ public class Request {
     private Contact contact;
 
     @JsonBackReference
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "request_manager", referencedColumnName = "id")
     private User manager;
 
     @JsonBackReference
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;

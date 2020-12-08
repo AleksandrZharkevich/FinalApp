@@ -100,4 +100,17 @@ public class RequestServiceImpl implements RequestService {
     public long getAllDoneRequestsCount() {
         return requestRepository.findAllByRequestStatusIs(RequestStatus.DONE).size();
     }
+
+    @Override
+    public void returnRequest(Request request) {
+        request.setRequestStatus(RequestStatus.REGISTERED);
+        request.setManager(null);
+        save(request);
+    }
+
+    @Override
+    public void closeRequest(Request request) {
+        request.setRequestStatus(RequestStatus.DONE);
+        save(request);
+    }
 }

@@ -29,4 +29,8 @@ public interface RequestService {
     long getAllRequestsCount();
 
     long getAllDoneRequestsCount();
+
+    void returnRequest(Request request);
+
+    void closeRequest(Request request);
 }
