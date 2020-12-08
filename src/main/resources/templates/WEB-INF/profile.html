@@ -127,7 +127,8 @@
                     <h6 class="text-white text-warning text-right">Вы не присоединились ни к одной компании</h6>
                 </div>
                 <div th:if="${joinedCompanies.size()>0}" class="col-md-5 ml-auto">
-                    <select id="selectId" class="selectpicker text-right" data-style="btn-white btn-lg text-white" data-width="100%"
+                    <select id="selectId" class="selectpicker text-right" data-style="btn-white btn-lg text-white"
+                            data-width="100%"
                             data-live-search="true" title="Выберите...">
                         <option th:each="company: ${joinedCompanies}"
                                 th:value="${company.id}" th:text="${company.name}">name
@@ -139,14 +140,8 @@
     </section>
 
 
-
-
-
-
-
-
-<!--    Доработать вывод заявок для выбранной компании      ajax -->
-<!--    Блок будет отображаться как результат onchange event на select элементе со списком загруженных проектов-->
+    <!--    Доработать вывод заявок для выбранной компании      ajax -->
+    <!--    Блок будет отображаться как результат onchange event на select элементе со списком загруженных проектов-->
     <section class="site-section">
         <div class="container">
             <div class="row mb-5 justify-content-center">
@@ -171,27 +166,29 @@
                             [[${request.contact.district}]] район</p>
                     </div>
                     <div class="col-md-3 text-md-left">
-                        <p><span class="meta link" style="color: blue!important">Отметить как выполненное</span></p>
+<!--                        <p><span class="meta link" style="color: blue!important">Отметить как выполненное</span></p>-->
+                        <p><a href="#" th:href="@{'/request/process/' + ${request.id}}" class="meta"
+                              style="color: blue!important">Обработать</a></p>
                         <p><span class="meta link" style="color: red!important">Отказаться</span></p>
                     </div>
                 </div>
             </div>
 
-<!--            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">-->
-<!--                <div class="col-md-6 text-center text-md-right">-->
-<!--                    <div class="custom-pagination ml-auto">-->
-<!--                        <div id="pages" class="d-inline-block">-->
-<!--                            <span th:each="pageNumber: ${pageNumbers}"-->
-<!--                                  th:text="${pageNumber}"-->
-<!--                                  th:data-page="${pageNumber}"-->
-<!--                                  th:onclick="'loadRequests(\'' + ${company.id} + '\', \'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "-->
-<!--                                  th:class="ajaxLink"-->
-<!--                                  th:classappend="${pageNumber== 1} ? currentLink">-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">-->
+            <!--                <div class="col-md-6 text-center text-md-right">-->
+            <!--                    <div class="custom-pagination ml-auto">-->
+            <!--                        <div id="pages" class="d-inline-block">-->
+            <!--                            <span th:each="pageNumber: ${pageNumbers}"-->
+            <!--                                  th:text="${pageNumber}"-->
+            <!--                                  th:data-page="${pageNumber}"-->
+            <!--                                  th:onclick="'loadRequests(\'' + ${company.id} + '\', \'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "-->
+            <!--                                  th:class="ajaxLink"-->
+            <!--                                  th:classappend="${pageNumber== 1} ? currentLink">-->
+            <!--                            </span>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
         </div>
     </section>

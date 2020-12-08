@@ -78,6 +78,26 @@ public class RequestController {
         return modelAndView;
     }
 
+    @GetMapping("/request/process/{id}")
+    public ModelAndView closeRequest(@PathVariable("id") Long requestId, @AuthenticationPrincipal User user){
+        ModelAndView modelAndView = new ModelAndView();
+        try{
+            Request request = requestService.findById(requestId);
+
+            if(request.getManager().equals(user)){
+                request.setRequestStatus(RequestStatus.DONE);
+                requestService.save(request);
+                modelAndView.setViewName("forward:/profile");
+            } else {
+                modelAndView.setViewName("redirect:/");
+            }
+        } catch (RequestNotFoundException e) {
+            e.printStackTrace();
+            modelAndView.setViewName("redirect:/");
+        }
+        return modelAndView;
+    }
+
 //    public String getActiveRequests(Model model, @RequestParam("page") Optional<Integer> page){
 //
 //    }

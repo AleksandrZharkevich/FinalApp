@@ -62,7 +62,7 @@
     </section>
 
     <section class="py-5 bg-image overlay-primary fixed overlay" id="next"
-             style="background-image: url('images/start.jpg');">
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'">
         <div class="container">
             <div class="row pb-0 block__19738 section-counter justify-content-center">
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
@@ -74,7 +74,6 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <!--доработать-->
                         <strong class="number" th:attr="data-number=${totalRegisteredRequests}">0</strong>
                     </div>
                     <span class="caption">Подано заявок</span>
@@ -82,7 +81,6 @@
 
                 <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <!--доработать-->
                         <strong class="number" th:attr="data-number=${totalDoneRequests}">0</strong>
                     </div>
                     <span class="caption">Выполнено заявок</span>
@@ -138,7 +136,9 @@
         </div>
     </section>
 
-    <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/start.jpg');">
+    <section class="py-5 bg-image overlay-primary fixed overlay"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'">
+        <!--             style="background-image: url('images/start.jpg');">-->
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-8">
@@ -157,7 +157,6 @@
 
 </div>
 
-<!-- SCRIPTS -->
 <div th:replace="baseFragment::scripts"></div>
 
 <script th:src="@{/js/companiesPageFunctions.js}"></script>
