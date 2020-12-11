@@ -2,17 +2,8 @@ $(document).ready(function () {
     
 });
 
-function loadDoneRequests(pageNumber, requestStatus) {
-    
-}
 
-
-
-
-
-
-
-function loadRequests(companyId, pageNumber, totalPages) {
+function loadActiveRequests(companyId, userId) {
     $.ajax({
         type: "GET",
         url: "/api/" + companyId + "/" + pageNumber,

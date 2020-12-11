@@ -116,7 +116,8 @@
 
     </section>
 
-    <section class="py-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/start.jpg');">
+    <section class="py-5 bg-image overlay-primary fixed overlay"
+             th:style="'background-image: url(' + @{/images/start.jpg} + ');'">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -124,12 +125,15 @@
                     <p class="mb-0 text-white lead">Выберите компанию для отображения заявок в обработке.</p>
                 </div>
                 <div th:if="${joinedCompanies.size()==0}" class="col-md-5 ml-auto">
-                    <h6 class="text-white text-warning text-right">Вы не присоединились ни к одной компании</h6>
+                    <h6 class="text-white lead text-right">Вы не присоединились ни к одной компании</h6>
                 </div>
                 <div th:if="${joinedCompanies.size()>0}" class="col-md-5 ml-auto">
-                    <select id="selectId" class="selectpicker text-right" data-style="btn-white btn-lg text-white"
+                    <select id="selectId" class="form-control form-control-lg text-right"
+                            data-style="btn-white btn-lg text-white"
                             data-width="100%"
-                            data-live-search="true" title="Выберите...">
+
+                    th:onchange="'loadActiveRequests(this.value,' + ${user.id} + ');'">
+                        <option th:value="0">Все заявки</option>
                         <option th:each="company: ${joinedCompanies}"
                                 th:value="${company.id}" th:text="${company.name}">name
                         </option>
@@ -151,21 +155,26 @@
             </div>
 
             <div id="companyRequests" class="mb-5">
+
                 <div th:each="request: ${allActiveRequests}"
                      class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
                     <div class="col-md-1">
                         <img align="center" width="50" height="50" th:src="@{/images/request.jpg}" alt="Image"
                              class="img-fluid">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h5>[[${request.contact.streetAddress}]]</h5>
                         <p class="meta"><strong>[[${request.contact.city}]]</strong></p>
                     </div>
-                    <div class="col-md-4">
-                        <p class="meta"><span class="icon-room"></span>[[${request.contact.region}]] область,
-                            [[${request.contact.district}]] район</p>
+                    <div class="col-md-3">
+                        <p class="meta"><span class="icon-room"></span>[[${request.contact.region}]] область</p>
+                        <p class="meta">[[${request.contact.district}]] район</p>
                     </div>
-                    <div class="col-md-3 text-md-left">
+                    <div class="col-md-4">
+                        <p class="meta">[[${request.contact.lastname}]] [[${request.contact.firstname}]]</p>
+                        <p class="meta">[[${request.contact.phoneNumber}]]</p>
+                    </div>
+                    <div class="col-md-1 text-md-left">
                         <p><a href="#" th:href="@{'/request/process/' + ${request.id}}" class="meta"
                               style="color: blue!important">Обработать</a></p>
                         <p><a href="#" th:href="@{'/request/return/' + ${request.id}}" class="meta"

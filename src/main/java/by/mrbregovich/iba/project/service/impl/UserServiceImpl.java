@@ -2,15 +2,13 @@ package by.mrbregovich.iba.project.service.impl;
 
 import by.mrbregovich.iba.project.dto.EditUserDto;
 import by.mrbregovich.iba.project.dto.NewUserDto;
-import by.mrbregovich.iba.project.entity.Contact;
-import by.mrbregovich.iba.project.entity.Request;
-import by.mrbregovich.iba.project.entity.User;
-import by.mrbregovich.iba.project.entity.UserStatus;
+import by.mrbregovich.iba.project.entity.*;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.repository.RoleRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
+import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.service.UserService;
 import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.util.Mapper;
@@ -91,23 +89,28 @@ public class UserServiceImpl implements UserService {
                 new UserNotFoundException(AppConstants.USER_ID_NOT_FOUND_MSG));
         user.setUserStatus(UserStatus.DELETED);
         //вернуть все заявки, обрабатываемые эти менеджером
+        List<Request> userRequests = requestRepository.findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, id);
+        userRequests.forEach(request -> {
+            request.setRequestStatus(RequestStatus.REGISTERED);
+            request.setManager(null);
 
-        //обработать вариант, если менеджер является основателем компании
-
+            requestRepository.save(request);
+        });
+        userRepository.delete(user);
     }
 
     @Override
     public User update(User user, EditUserDto form) {
-        if(form.getRegion()!=null && !form.getRegion().equalsIgnoreCase("")){
+        if (form.getRegion() != null && !form.getRegion().equalsIgnoreCase("")) {
             user.getContact().setRegion(form.getRegion());
         }
-        if(form.getDistrict()!=null && !form.getDistrict().equalsIgnoreCase("")){
+        if (form.getDistrict() != null && !form.getDistrict().equalsIgnoreCase("")) {
             user.getContact().setDistrict(form.getDistrict());
         }
-        if(form.getCity()!=null && !form.getCity().equalsIgnoreCase("")){
+        if (form.getCity() != null && !form.getCity().equalsIgnoreCase("")) {
             user.getContact().setCity(form.getCity());
         }
-        if(form.getStreetAddress()!=null && !form.getStreetAddress().equalsIgnoreCase("")){
+        if (form.getStreetAddress() != null && !form.getStreetAddress().equalsIgnoreCase("")) {
             user.getContact().setStreetAddress(form.getStreetAddress());
         }
         return userRepository.save(user);
