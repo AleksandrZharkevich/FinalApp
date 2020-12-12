@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
+    </div>
 
     <!-- NAVBAR -->
     <div th:replace="baseFragment::header"></div>
@@ -132,7 +132,7 @@
                             data-style="btn-white btn-lg text-white"
                             data-width="100%"
 
-                    th:onchange="'loadActiveRequests(this.value,' + ${user.id} + ');'">
+                            th:onchange="'loadActiveRequests(this.value,' + ${user.id} + ');'">
                         <option th:value="0">Все заявки</option>
                         <option th:each="company: ${joinedCompanies}"
                                 th:value="${company.id}" th:text="${company.name}">name
@@ -144,7 +144,6 @@
     </section>
 
 
-    <!--    Доработать вывод заявок для выбранной компании      ajax -->
     <!--    Блок будет отображаться как результат onchange event на select элементе со списком загруженных проектов-->
     <section class="site-section">
         <div class="container">
@@ -153,9 +152,7 @@
                     <h2 class="section-title mb-2">Заявки в обработке</h2>
                 </div>
             </div>
-
             <div id="companyRequests" class="mb-5">
-
                 <div th:each="request: ${allActiveRequests}"
                      class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
                     <div class="col-md-1">
@@ -182,23 +179,6 @@
                     </div>
                 </div>
             </div>
-
-            <!--            <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">-->
-            <!--                <div class="col-md-6 text-center text-md-right">-->
-            <!--                    <div class="custom-pagination ml-auto">-->
-            <!--                        <div id="pages" class="d-inline-block">-->
-            <!--                            <span th:each="pageNumber: ${pageNumbers}"-->
-            <!--                                  th:text="${pageNumber}"-->
-            <!--                                  th:data-page="${pageNumber}"-->
-            <!--                                  th:onclick="'loadRequests(\'' + ${company.id} + '\', \'' + ${pageNumber} + '\', \'' + ${pageNumbers.size()} + '\');' "-->
-            <!--                                  th:class="ajaxLink"-->
-            <!--                                  th:classappend="${pageNumber== 1} ? currentLink">-->
-            <!--                            </span>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
         </div>
     </section>
 

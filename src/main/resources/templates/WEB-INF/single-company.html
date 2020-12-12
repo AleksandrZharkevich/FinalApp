@@ -59,7 +59,6 @@
                 <h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">Компания
                     завершена</h3>
             </div>
-
             <div class="row align-items-center mb-5">
                 <div class="col-lg-8 mb-4 mb-lg-0">
                     <div class="d-flex align-items-center">
@@ -81,8 +80,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div id="joinPanel" class="row justify-content-end">
                 <div sec:authorize="!isAuthenticated()" class="col-lg-8 justify-content-end">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary" style="color: darkblue!important">Войдите
@@ -108,7 +105,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="donatePanel" class="row justify-content-end">
                 <div class="col-lg-8 justify-content-end">
                     <div class="row justify-content-end">
@@ -135,7 +131,6 @@
                                 class="icon-align-left mr-3"></span>Описание проекта</h3>
                         <p th:text="${company.description}">Lorem ipsum dolor sit amet</p>
                     </div>
-
                     <div class="row mb-5 justify-content-end">
                         <div class="col-4">
                             <a th:if="${!company.isClosed()}" href="#" th:href="@{'/request/' + ${company.id}}"
@@ -144,7 +139,6 @@
                                class="btn btn-block btn-primary btn-md">Возьмите мою подпись</a>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-lg-4">
                     <div class="bg-light p-3 border rounded mb-4">
@@ -160,6 +154,14 @@
                             </li>
                             <li sec:authorize="isAuthenticated()"
                                 th:if="${#authentication.principal.id} == ${company.owner.id}" class="mb-2"><strong
+                                    class="text-black">Подано заявок:</strong> [[${company.requests.size()}]]
+                            </li>
+                            <li sec:authorize="isAuthenticated()"
+                                th:if="${#authentication.principal.id} == ${company.owner.id}" class="mb-2"><strong
+                                    class="text-black">Выполнено заявок:</strong> [[${company.doneRequests()}]]
+                            </li>
+                            <li sec:authorize="isAuthenticated()"
+                                th:if="${#authentication.principal.id} == ${company.owner.id}" class="mb-2"><strong
                                     class="text-black">Помощь:</strong>
                                 $ [[${company.donate}]]
                             </li>
@@ -170,7 +172,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -185,7 +186,6 @@
                     <div class="validationError" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                 </div>
             </div>
-
             <div id="requests" class="mb-5">
                 <div th:each="request: ${activeRequests}"
                      class="row align-items-center job-item border-bottom pb-3 mb-3 pt-3">
@@ -206,7 +206,6 @@
                     </div>
                 </div>
             </div>
-
             <div th:if="${pageNumbers.size() > 0}" class="row pagination-wrap">
                 <div class="col-md-6 text-center text-md-right">
                     <div class="custom-pagination ml-auto">
@@ -222,7 +221,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -231,7 +229,6 @@
 
 </div>
 
-<!-- SCRIPTS -->
 <div th:replace="baseFragment::scripts"></div>
 <script th:src="@{/js/singleCompanyFunctions.js}"></script>
 

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -86,5 +87,12 @@ public class Company {
     @Transient
     public boolean isClosed() {
         return this.companyStatus == CompanyStatus.CLOSED;
+    }
+
+    @Transient
+    public long doneRequests() {
+        return this.requests.stream()
+                .filter(request -> request.getRequestStatus() == RequestStatus.DONE)
+                .count();
     }
 }

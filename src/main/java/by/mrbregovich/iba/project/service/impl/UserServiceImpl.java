@@ -1,5 +1,6 @@
 package by.mrbregovich.iba.project.service.impl;
 
+import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.dto.EditUserDto;
 import by.mrbregovich.iba.project.dto.NewUserDto;
 import by.mrbregovich.iba.project.entity.*;
@@ -8,9 +9,7 @@ import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.repository.RequestRepository;
 import by.mrbregovich.iba.project.repository.RoleRepository;
 import by.mrbregovich.iba.project.repository.UserRepository;
-import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.service.UserService;
-import by.mrbregovich.iba.project.constants.AppConstants;
 import by.mrbregovich.iba.project.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
                 throw new UserAlreadyExistsException(AppConstants.PHONE_NUMBER_ALREADY_REGISTERED_MSG);
             }
         }
-
         Contact contact = Mapper.map(userDto, Contact.class);
         user = Mapper.map(userDto, User.class);
         user.setContact(contact);
@@ -87,16 +85,15 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new UserNotFoundException(AppConstants.USER_ID_NOT_FOUND_MSG));
-        user.setUserStatus(UserStatus.DELETED);
-        //вернуть все заявки, обрабатываемые эти менеджером
         List<Request> userRequests = requestRepository.findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, id);
         userRequests.forEach(request -> {
             request.setRequestStatus(RequestStatus.REGISTERED);
             request.setManager(null);
-
             requestRepository.save(request);
         });
-        userRepository.delete(user);
+        user.getJoinedCompanies().forEach(company -> company.getParticipants().remove(user));
+        user.setUserStatus(UserStatus.DELETED);
+        userRepository.save(user);
     }
 
     @Override
