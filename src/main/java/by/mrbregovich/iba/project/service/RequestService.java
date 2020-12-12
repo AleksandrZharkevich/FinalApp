@@ -20,6 +20,10 @@ public interface RequestService {
 
     List<Request> findAllActiveRequestsByUser(User user);
 
+    List<RequestRestResponseDto> findAllActiveRequestsByUserId(Long userId);
+
+    List<RequestRestResponseDto> findAllActiveRequestsByUserIdAndCompanyId(Long userId, Long companyId);
+
     List<Request> allByManagerId(Long managerId, Long companyId);
 
     List<RequestRestResponseDto> findRegisteredRequestsByCompanyIdAndPageNumber(Long id, Integer pageNumber);

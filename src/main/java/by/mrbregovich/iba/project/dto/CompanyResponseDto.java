@@ -11,17 +11,11 @@ import lombok.NoArgsConstructor;
 public class CompanyResponseDto {
 
     private Long id;
-
     private String name;
-
     private String description;
-
     private String imgUrl;
-
     private String ownerLogin;
-
     private long ownerId;
-
     private int daysLeft;
 
     public static CompanyResponseDto of(Company company) {

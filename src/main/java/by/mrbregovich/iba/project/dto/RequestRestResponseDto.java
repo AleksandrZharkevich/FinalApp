@@ -10,6 +10,9 @@ public class RequestRestResponseDto {
     private String district;
     private String city;
     private String streetAddress;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
 
     public static RequestRestResponseDto of(Request request) {
         RequestRestResponseDto requestRestResponseDto = new RequestRestResponseDto();
@@ -18,6 +21,9 @@ public class RequestRestResponseDto {
         requestRestResponseDto.setDistrict(request.getContact().getDistrict());
         requestRestResponseDto.setCity(request.getContact().getCity());
         requestRestResponseDto.setStreetAddress(request.getContact().getStreetAddress());
+        requestRestResponseDto.setFirstName(request.getContact().getFirstname());
+        requestRestResponseDto.setLastName(request.getContact().getLastname());
+        requestRestResponseDto.setPhoneNumber(request.getContact().getPhoneNumber());
         return requestRestResponseDto;
     }
 }

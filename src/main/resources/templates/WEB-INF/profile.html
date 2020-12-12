@@ -132,7 +132,7 @@
                             data-style="btn-white btn-lg text-white"
                             data-width="100%"
 
-                            th:onchange="'loadActiveRequests(this.value,' + ${user.id} + ');'">
+                            th:onchange="'loadActiveRequests(this.value,\'' + ${user.id} + '\');'">
                         <option th:value="0">Все заявки</option>
                         <option th:each="company: ${joinedCompanies}"
                                 th:value="${company.id}" th:text="${company.name}">name
@@ -142,7 +142,6 @@
             </div>
         </div>
     </section>
-
 
     <!--    Блок будет отображаться как результат onchange event на select элементе со списком загруженных проектов-->
     <section class="site-section">

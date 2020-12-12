@@ -115,8 +115,4 @@ public class RequestController {
         }
         return modelAndView;
     }
-
-//    public String getActiveRequests(Model model, @RequestParam("page") Optional<Integer> page){
-//
-//    }
 }

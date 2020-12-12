@@ -62,6 +62,25 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<RequestRestResponseDto> findAllActiveRequestsByUserId(Long userId) {
+        List<RequestRestResponseDto> requests = requestRepository
+                .findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, userId)
+                .stream().map(RequestRestResponseDto::of)
+                .collect(Collectors.toList());
+        return Objects.requireNonNullElse(requests, Collections.emptyList());
+    }
+
+    @Override
+    public List<RequestRestResponseDto> findAllActiveRequestsByUserIdAndCompanyId(Long userId, Long companyId) {
+        List<RequestRestResponseDto> requests = requestRepository
+                .findAllByRequestStatusIsAndManager_Id(RequestStatus.IN_PROCESS, userId)
+                .stream().filter(request -> request.getCompany().getId().equals(companyId))
+                .map(RequestRestResponseDto::of)
+                .collect(Collectors.toList());
+        return Objects.requireNonNullElse(requests, Collections.emptyList());
+    }
+
+    @Override
     public List<Request> allByManagerId(Long managerId, Long companyId) {
         List<Request> requests = requestRepository.findAllByManager_IdAndCompany_Id(managerId, companyId);
         if (requests == null) {

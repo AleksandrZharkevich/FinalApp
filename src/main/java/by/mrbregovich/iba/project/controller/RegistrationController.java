@@ -134,7 +134,6 @@ public class RegistrationController {
             User user = userService.findById(auth.getId());
             userService.deleteById(auth.getId());
             return "redirect:/logout";
-//            return "redirect:/";
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             return "redirect:/";

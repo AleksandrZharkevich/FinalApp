@@ -27,7 +27,6 @@ public final class AppConstants {
     public static final String VALIDATION_DESCRIPTION = "Введите краткое описание компании";
     public static final String VALIDATION_COMPANY_NAME = "Введите название компании";
 
-    //
     public static final int COMPANIES_PAGE_SIZE = 5;
     public static final int REQUESTS_PAGE_SIZE = 2;
     public static final String NO_IMG_SRC = "/images/no_photo.png";

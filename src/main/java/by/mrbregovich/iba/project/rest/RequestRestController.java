@@ -1,6 +1,7 @@
 package by.mrbregovich.iba.project.rest;
 
 import by.mrbregovich.iba.project.dto.RequestRestResponseDto;
+import by.mrbregovich.iba.project.entity.Request;
 import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.service.UserService;
@@ -29,4 +30,14 @@ public class RequestRestController {
         return requestService.findRegisteredRequestsByCompanyIdAndPageNumber(companyId, pageNumber);
     }
 
+    @GetMapping("/api/requests/{userId}")
+    public List<RequestRestResponseDto> getAllActiveRequests(@PathVariable("userId") Long userId) {
+        return requestService.findAllActiveRequestsByUserId(userId);
+    }
+
+    @GetMapping("/api/requests/{userId}/{companyId}")
+    public List<RequestRestResponseDto> getAllActiveRequests(@PathVariable("userId") Long userId,
+                                              @PathVariable("companyId") Long companyId) {
+        return requestService.findAllActiveRequestsByUserIdAndCompanyId(userId, companyId);
+    }
 }

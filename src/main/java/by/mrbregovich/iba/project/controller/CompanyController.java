@@ -106,7 +106,7 @@ public class CompanyController {
             model.addAttribute("pageNumbers", pageNumbers);
             return "single-company";
         } catch (CompanyNotFoundException e) {
-//            modelAndView.addObject("errorMsg", e.getMessage());
+            //modelAndView.addObject("errorMsg", e.getMessage());
         }
         return "redirect:/";
     }
