@@ -1,21 +1,16 @@
 package by.mrbregovich.iba.project.controller;
 
 import by.mrbregovich.iba.project.constants.AppConstants;
-import by.mrbregovich.iba.project.dto.CompanyDto;
 import by.mrbregovich.iba.project.dto.EditUserDto;
 import by.mrbregovich.iba.project.dto.NewUserDto;
-import by.mrbregovich.iba.project.entity.Company;
 import by.mrbregovich.iba.project.entity.Request;
-import by.mrbregovich.iba.project.entity.RequestStatus;
 import by.mrbregovich.iba.project.entity.User;
-import by.mrbregovich.iba.project.exception.CompanyNotFoundException;
 import by.mrbregovich.iba.project.exception.UserAlreadyExistsException;
 import by.mrbregovich.iba.project.exception.UserNotFoundException;
 import by.mrbregovich.iba.project.service.CompanyService;
 import by.mrbregovich.iba.project.service.RequestService;
 import by.mrbregovich.iba.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 

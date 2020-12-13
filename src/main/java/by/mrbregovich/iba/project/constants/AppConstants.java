@@ -40,4 +40,7 @@ public final class AppConstants {
     public static final String PARTICIPANT_IS_NOT_JOINED = "Вы не зарегистрированы в компании";
     public static final String USER_IS_NOT_PARTICIPANT = "Присоединитесь к проекту, чтобы обрабатывать заявки";
     public static final String CHECK_LOGIN_PASS_MSG = "Проверьте логин и пароль";
+    public static final String VALIDATION_MAIL_CONTENT = "Введите сообщение";
+    public static final String VALIDATION_MAIL_SUBJECT = "Введите тему сообщения";
+    public static final String DEV_EMAIL = "zharkevich1.19@gmail.com";
 }

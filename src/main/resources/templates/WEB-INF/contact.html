@@ -14,6 +14,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body id="top">
 
@@ -52,49 +53,57 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <form action="#" class="">
+                    <form method="post" th:action="@{/contact}" th:object="${mailDto}" class="">
 
                         <div class="row form-group">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <label class="text-black" for="fname">Имя</label>
-                                <input type="text" id="fname" class="form-control">
+                                <label class="text-black" for="firstName">Имя</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('firstName')}"
+                                   th:errors="*{firstName}">First name error</p>
+                                <input type="text" id="firstName" name="firstName" class="form-control">
                             </div>
                             <div class="col-md-6">
-                                <label class="text-black" for="lname">Фамилия</label>
-                                <input type="text" id="lname" class="form-control">
+                                <label class="text-black" for="lastName">Фамилия</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('lastName')}"
+                                   th:errors="*{lastName}">Last name error</p>
+                                <input type="text" id="lastName" name="lastName" class="form-control">
                             </div>
                         </div>
-
                         <div class="row form-group">
-
                             <div class="col-md-12">
                                 <label class="text-black" for="email">Email</label>
-                                <input type="email" id="email" class="form-control">
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('email')}"
+                                   th:errors="*{email}">Email error</p>
+                                <input type="email" id="email" name="email" class="form-control">
                             </div>
                         </div>
-
                         <div class="row form-group">
-
                             <div class="col-md-12">
                                 <label class="text-black" for="subject">Тема</label>
-                                <input type="subject" id="subject" class="form-control">
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('subject')}"
+                                   th:errors="*{subject}">Subject error</p>
+                                <input type="text" id="subject" name="subject" class="form-control">
                             </div>
                         </div>
-
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label class="text-black" for="message">Текст сообщения</label>
-                                <textarea name="message" id="message" cols="30" rows="7" class="form-control"
+                                <label class="text-black" for="content">Текст сообщения</label>
+                                <p class="validationError"
+                                   th:if="${#fields.hasErrors('content')}"
+                                   th:errors="*{content}">Content error</p>
+                                <textarea name="content" id="content" cols="30" rows="7" class="form-control"
                                           placeholder="Напишите Ваше сообщение здесь..."></textarea>
                             </div>
                         </div>
-
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <input type="submit" value="Отправить" class="btn btn-primary btn-md text-white">
                             </div>
                         </div>
-
 
                     </form>
                 </div>
@@ -107,8 +116,7 @@
                         <p class="mb-4"><a href="#">+375 (29) 661-75-00</a></p>
 
                         <p class="mb-0 font-weight-bold">Email</p>
-                        <p class="mb-0"><a href="#">youremail@domain.com</a></p>
-
+                        <p class="mb-0"><a href="#">Zharkevich1.19@gmail.com</a></p>
                     </div>
                 </div>
             </div>
